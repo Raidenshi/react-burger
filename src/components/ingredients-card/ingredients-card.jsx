@@ -1,7 +1,7 @@
 import React from 'react';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import cardStyles from './ingridients-card.module.css';
+import cardStyles from './ingredients-card.module.css';
 
 function IngridientsCard({ element }) {
   return (

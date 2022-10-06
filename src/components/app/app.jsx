@@ -1,7 +1,7 @@
 import React from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import BurgerIngridients from '../burger-ingridients/burger-ingridients';
+import BurgerIngridients from '../burger-ingridients/burger-ingredients';
 
 import appStyles from './app.module.css';
 
@@ -28,7 +28,7 @@ function App() {
       <AppHeader />
       <main className={appStyles.main}>
         {state.data.data && <BurgerIngridients data={state.data.data} />}
-        <BurgerConstructor />
+        {state.data.data && <BurgerConstructor data={state.data.data} />}
       </main>
     </>
   );

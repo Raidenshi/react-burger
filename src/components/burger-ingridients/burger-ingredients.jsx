@@ -1,31 +1,31 @@
 import React from 'react';
-import IngridientTabs from '../ingridient-tabs/ingridient-tabs';
-import IngridientsCard from '../ingridients-card/ingridients-card';
+import IngridientTabs from '../ingredient-tabs/ingredient-tabs';
+import IngridientsCard from '../ingredients-card/ingredients-card';
 
-import ingridientsStyles from './burger-ingridients.module.css';
+import ingredientsStyles from './burger-ingredients.module.css';
 
 function BurgerIngridients({ data }) {
   return (
-    <div className={ingridientsStyles.container}>
+    <div className={ingredientsStyles.container}>
       <h1 className="pt-10 pb-5  text text_type_main-large">Соберите бургер</h1>
       <IngridientTabs />
-      <div className={`${ingridientsStyles.overflow} mt-10`}>
+      <div className={`${ingredientsStyles.overflow} mt-10`}>
         <h2 className="text text_type_main-medium">Булки</h2>
-        <ul className={ingridientsStyles.ingridients}>
+        <ul className={ingredientsStyles.ingredients}>
           {data.map((el) => {
             if (el.type === 'bun')
               return <IngridientsCard element={el} key={el._id} />;
           })}
         </ul>
         <h2 className="text text_type_main-medium mt-10">Соусы</h2>
-        <ul className={ingridientsStyles.ingridients}>
+        <ul className={ingredientsStyles.ingredients}>
           {data.map((el) => {
             if (el.type === 'sauce')
               return <IngridientsCard element={el} key={el._id} />;
           })}
         </ul>
         <h2 className="text text_type_main-medium mt-10">Начинки</h2>
-        <ul className={ingridientsStyles.ingridients}>
+        <ul className={ingredientsStyles.ingredients}>
           {data.map((el) => {
             if (el.type === 'main')
               return <IngridientsCard element={el} key={el._id} />;

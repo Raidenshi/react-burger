@@ -4,7 +4,7 @@
   max-width: 620px;
 }
 
-.ingridients {
+.ingredients {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
