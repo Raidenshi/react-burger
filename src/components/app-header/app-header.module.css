@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  height: 90px;
+  padding: 0 320px;
+
+  background-color: #1c1c21;
+}
+
+.navbar {
+  display: flex;
+  flex-grow: 0.5;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
