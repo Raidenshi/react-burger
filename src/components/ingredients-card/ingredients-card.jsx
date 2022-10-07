@@ -6,7 +6,11 @@ import cardStyles from './ingredients-card.module.css';
 function IngridientsCard({ element }) {
   return (
     <li className={`mt-6 mb-8 ml-4 mr-4 ${cardStyles.card}`}>
-      <img src={element.image} alt="" className="mr-4 ml-4" />
+      <img
+        src={element.image}
+        alt=""
+        className={`mr-4 ml-4 ${cardStyles.image}`}
+      />
       <div className="mt-1 mb-1">
         <span className="text text_type_digits-default mr-3">
           {element.price}

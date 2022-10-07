@@ -8,8 +8,7 @@ import {
 
 import constructorStyles from './burger-constructor.module.css';
 
-function BurgerConstructor({ data }) {
-  console.log(data);
+function BurgerConstructor({ data, openModal }) {
   return (
     <div className={constructorStyles.container}>
       <ul className={constructorStyles.list}>
@@ -69,7 +68,12 @@ function BurgerConstructor({ data }) {
           <span className="text text_type_digits-medium mr-2">7695</span>
           <CurrencyIcon type="primary" />
         </div>
-        <Button type="primary" size="medium">
+        <Button
+          type="primary"
+          size="medium"
+          htmlType="button"
+          onClick={openModal}
+        >
           Оформить заказ
         </Button>
       </div>

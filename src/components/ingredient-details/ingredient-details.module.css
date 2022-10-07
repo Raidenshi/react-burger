@@ -1,15 +1,13 @@
-.card {
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 270px;
-  height: 210px;
 }
 
-.name {
+.details {
+  display: flex;
+  gap: 20px;
   text-align: center;
-}
-
-.image {
-  cursor: pointer;
+  width: 508px;
+  margin-bottom: 60px;
 }
