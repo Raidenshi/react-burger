@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import buttonStyles from './app-header-button.module.css';
 
@@ -13,5 +14,10 @@ function AppHeaderButton(props) {
     </a>
   );
 }
+
+AppHeaderButton.propTypes = {
+  isActive: PropTypes.bool,
+  text: PropTypes.string,
+};
 
 export default AppHeaderButton;

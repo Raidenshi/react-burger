@@ -2,7 +2,7 @@ import { isVisible } from '@testing-library/user-event/dist/utils';
 import React from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import BurgerIngridients from '../burger-ingredients/burger-ingredients';
+import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
@@ -58,7 +58,7 @@ function App() {
       <AppHeader />
       <main className={appStyles.main}>
         {state.data.data && (
-          <BurgerIngridients data={state.data.data} openModal={openModal} />
+          <BurgerIngredients data={state.data.data} openModal={openModal} />
         )}
         {state.data.data && (
           <BurgerConstructor data={state.data.data} openModal={openModal} />

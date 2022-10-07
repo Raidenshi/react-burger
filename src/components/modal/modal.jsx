@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import modalStyles from './modal.module.css';
@@ -50,5 +51,9 @@ function Modal({ children, closeModal }) {
     modalRoot
   );
 }
+
+Modal.propTypes = {
+  closeModal: PropTypes.func,
+};
 
 export default Modal;
