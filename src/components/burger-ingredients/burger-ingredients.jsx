@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import IngridientTabs from '../ingredient-tabs/ingredient-tabs';
-import IngridientsCard from '../ingredients-card/ingredients-card';
+import IngredientsCard from '../ingredients-card/ingredients-card';
 
 import ingredientsStyles from './burger-ingredients.module.css';
 
@@ -15,21 +15,21 @@ function BurgerIngredients({ data, openModal }) {
         <ul className={ingredientsStyles.ingredients} onClick={openModal}>
           {data.map((el) => {
             if (el.type === 'bun')
-              return <IngridientsCard element={el} key={el._id} />;
+              return <IngredientsCard element={el} key={el._id} />;
           })}
         </ul>
         <h2 className="text text_type_main-medium mt-10">Соусы</h2>
         <ul className={ingredientsStyles.ingredients} onClick={openModal}>
           {data.map((el) => {
             if (el.type === 'sauce')
-              return <IngridientsCard element={el} key={el._id} />;
+              return <IngredientsCard element={el} key={el._id} />;
           })}
         </ul>
         <h2 className="text text_type_main-medium mt-10">Начинки</h2>
         <ul className={ingredientsStyles.ingredients} onClick={openModal}>
           {data.map((el) => {
             if (el.type === 'main')
-              return <IngridientsCard element={el} key={el._id} />;
+              return <IngredientsCard element={el} key={el._id} />;
           })}
         </ul>
       </div>

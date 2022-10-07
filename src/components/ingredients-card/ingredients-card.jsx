@@ -4,7 +4,7 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 
 import cardStyles from './ingredients-card.module.css';
 
-function IngridientsCard({ element }) {
+function IngredientsCard({ element }) {
   return (
     <li className={`mt-6 mb-8 ml-4 mr-4 ${cardStyles.card}`}>
       <img
@@ -42,4 +42,4 @@ IngredientsCard.propTypes = {
   }).isRequired,
 };
 
-export default IngridientsCard;
+export default IngredientsCard;
