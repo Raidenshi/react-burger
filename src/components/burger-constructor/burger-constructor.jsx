@@ -45,7 +45,7 @@ function BurgerConstructor({ data, openModal }) {
             };
           }
           return (
-            <li className="mr-4" key={el._id}>
+            <li className="mr-4" key={`${el._id}${i}`}>
               {checkInMiddle && <DragIcon type="primary" />}
               <ConstructorElement {...constructorProps} />
             </li>
