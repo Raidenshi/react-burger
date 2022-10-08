@@ -1,4 +1,3 @@
-import { isVisible } from '@testing-library/user-event/dist/utils';
 import React from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
@@ -24,18 +23,18 @@ function App() {
     setModal({ ingredient: null, visible: false });
   }
 
-  function openModal(e) {
-    if (e.target.localName == 'img') {
-      setModal({
-        visible: true,
-        ingredient: state.data.data.find((el) => el.image === e.target.src),
-      });
-    } else if (e.target.localName == 'button') {
-      setModal({
-        visible: true,
-        ingredient: null,
-      });
-    }
+  function openModalOrder() {
+    setModal({
+      visible: true,
+      ingredient: null,
+    });
+  }
+
+  function openModalIngredient(ingredient) {
+    setModal({
+      visible: true,
+      ingredient: ingredient,
+    });
   }
 
   React.useEffect(() => {
@@ -43,6 +42,9 @@ function App() {
       try {
         setState({ ...state, isLoading: true });
         const result = await fetch(URL);
+        if (!result.ok) {
+          throw new Error('Error occurred!');
+        }
         const ingrData = await result.json();
         setState({ isLoading: false, data: ingrData });
       } catch (err) {
@@ -58,10 +60,16 @@ function App() {
       <AppHeader />
       <main className={appStyles.main}>
         {state.data.data && (
-          <BurgerIngredients data={state.data.data} openModal={openModal} />
+          <BurgerIngredients
+            data={state.data.data}
+            openModal={openModalIngredient}
+          />
         )}
         {state.data.data && (
-          <BurgerConstructor data={state.data.data} openModal={openModal} />
+          <BurgerConstructor
+            data={state.data.data}
+            openModal={openModalOrder}
+          />
         )}
       </main>
       {modal.visible && (

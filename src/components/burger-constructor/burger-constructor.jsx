@@ -6,63 +6,51 @@ import {
   CurrencyIcon,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import dataProps from '../../utils/types';
 
 import constructorStyles from './burger-constructor.module.css';
 
 function BurgerConstructor({ data, openModal }) {
+  const addedIngredients = [
+    data[0],
+    data[3],
+    data[4],
+    data[5],
+    data[5],
+    data[0],
+  ];
   return (
     <div className={constructorStyles.container}>
       <ul className={constructorStyles.list}>
-        <li className="mr-4">
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text="Краторная булка N-200i (верх)"
-            price={data[0].price}
-            thumbnail={data[0].image}
-          />
-        </li>
-        <li className="mr-4">
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text="Филе Люминесцентного тетраодонтимформа"
-            price={data[3].price}
-            thumbnail={data[3].image}
-          />
-        </li>
-        <li className="mr-4">
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text="Говяжий метеорит (отбивная)"
-            price={data[4].price}
-            thumbnail={data[4].image}
-          />
-        </li>
-        <li className="mr-4">
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text="Биокотлета из марсианской Магнолии"
-            price={data[5].price}
-            thumbnail={data[5].image}
-          />
-        </li>
-        <li className="mr-4">
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text="Биокотлета из марсианской Магнолии"
-            price={data[5].price}
-            thumbnail={data[5].image}
-          />
-        </li>
-        <li className="mr-4">
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={1255}
-            thumbnail={data[0].image}
-          />
-        </li>
+        {addedIngredients.map((el, i) => {
+          const checkInMiddle = i > 0 && i !== addedIngredients.length - 1;
+          let constructorProps = {
+            text: el.name,
+            price: el.price,
+            thumbnail: el.image,
+          };
+          if (i === 0) {
+            constructorProps = {
+              ...constructorProps,
+              type: 'top',
+              text: `${el.name} (верх)`,
+              isLocked: true,
+            };
+          } else if (i === addedIngredients.length - 1) {
+            constructorProps = {
+              ...constructorProps,
+              type: 'bottom',
+              text: `${el.name} (низ)`,
+              isLocked: true,
+            };
+          }
+          return (
+            <li className="mr-4" key={el._id}>
+              {checkInMiddle && <DragIcon type="primary" />}
+              <ConstructorElement {...constructorProps} />
+            </li>
+          );
+        })}
       </ul>
       <div className={constructorStyles.order}>
         <div className="mr-10">
@@ -83,22 +71,7 @@ function BurgerConstructor({ data, openModal }) {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      proteins: PropTypes.number.isRequired,
-      fat: PropTypes.number.isRequired,
-      carbohydrates: PropTypes.number.isRequired,
-      calories: PropTypes.number.isRequired,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      image_mobile: PropTypes.string.isRequired,
-      image_large: PropTypes.string.isRequired,
-      __v: PropTypes.number.isRequired,
-    }).isRequired
-  ),
+  data: PropTypes.arrayOf(dataProps).isRequired,
   openModal: PropTypes.func.isRequired,
 };
 

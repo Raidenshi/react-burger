@@ -8,7 +8,7 @@ function OrderDetails() {
     <div className={`mt-30 mb-30 ${orderStyles.container}`}>
       <p className="text text_type_digits-large">034536</p>
       <p className="text text_type_main-medium mt-8">Идентификатор заказа</p>
-      <img src={done} alt="" className="mt-15 mb-15" />
+      <img src={done} alt="Заказ подтверждён" className="mt-15 mb-15" />
       <p className="text text_type_main-default mb-2">
         Ваш заказ начали готовить
       </p>

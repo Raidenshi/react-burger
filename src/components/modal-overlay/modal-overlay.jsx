@@ -7,7 +7,7 @@ function ModalOverlay({ closeModal }) {
 }
 
 ModalOverlay.propTypes = {
-  closeModal: PropTypes.func,
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default ModalOverlay;
