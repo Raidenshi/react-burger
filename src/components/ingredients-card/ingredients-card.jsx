@@ -29,6 +29,7 @@ function IngredientsCard({ element, openModal }) {
 
 IngredientsCard.propTypes = {
   element: dataProps,
+  openModal: PropTypes.func.isRequired,
 };
 
 export default IngredientsCard;

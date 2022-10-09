@@ -12,20 +12,22 @@ import headerStyles from './app-header.module.css';
 function AppHeader() {
   return (
     <header className={headerStyles.header}>
-      <nav className={headerStyles.navbar}>
-        <AppHeaderButton text="Конструктор" isActive={true}>
-          <BurgerIcon type="primary" />
+      <div className={headerStyles.container}>
+        <nav className={headerStyles.navbar}>
+          <AppHeaderButton text="Конструктор" isActive={true}>
+            <BurgerIcon type="primary" />
+          </AppHeaderButton>
+          <AppHeaderButton text="Лента заказов">
+            <ListIcon type="secondary" />
+          </AppHeaderButton>
+        </nav>
+        <a className={headerStyles.logo}>
+          <Logo />
+        </a>
+        <AppHeaderButton text="Личный кабинет">
+          <ProfileIcon type="secondary" />
         </AppHeaderButton>
-        <AppHeaderButton text="Лента заказов">
-          <ListIcon type="secondary" />
-        </AppHeaderButton>
-      </nav>
-      <a className={headerStyles.logo}>
-        <Logo />
-      </a>
-      <AppHeaderButton text="Личный кабинет">
-        <ProfileIcon type="secondary" />
-      </AppHeaderButton>
+      </div>
     </header>
   );
 }

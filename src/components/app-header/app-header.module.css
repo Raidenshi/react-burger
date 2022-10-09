@@ -1,10 +1,13 @@
 .header {
+  background-color: #1c1c21;
+}
+
+.container {
   display: flex;
   justify-content: space-between;
   height: 90px;
-  padding: 0 320px;
-
-  background-color: #1c1c21;
+  max-width: 1053px;
+  margin: 0 auto;
 }
 
 .navbar {
