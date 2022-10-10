@@ -1,0 +1,22 @@
+.header {
+  background-color: #1c1c21;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  height: 90px;
+  max-width: 1053px;
+  margin: 0 auto;
+}
+
+.navbar {
+  display: flex;
+  flex-grow: 0.5;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
