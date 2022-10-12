@@ -6,6 +6,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import appStyles from './app.module.css';
+import { ConstructorContext } from '../../services/ConstructorContext';
 
 function App() {
   const URL = 'https://norma.nomoreparties.space/api/ingredients';
@@ -17,6 +18,7 @@ function App() {
     visible: false,
     ingredient: null,
   });
+  const [addedIngredients, setAddedIngredients] = React.useState([]);
 
   function closeModal() {
     setModal({ ingredient: null, visible: false });
@@ -45,7 +47,15 @@ function App() {
           throw new Error('Error occurred!');
         }
         const ingrData = await result.json();
-        setState({ isLoading: false, data: ingrData });
+        setState({ isLoading: false, data: ingrData.data });
+        setAddedIngredients([
+          ingrData.data[0],
+          ingrData.data[3],
+          ingrData.data[4],
+          ingrData.data[5],
+          ingrData.data[5],
+          ingrData.data[0],
+        ]);
       } catch (err) {
         console.log(err);
       }
@@ -58,17 +68,16 @@ function App() {
     <>
       <AppHeader />
       <main className={appStyles.main}>
-        {state.data.data && (
+        {state.data.length && (
           <BurgerIngredients
-            data={state.data.data}
+            data={state.data}
             openModal={openModalIngredient}
           />
         )}
-        {state.data.data && (
-          <BurgerConstructor
-            data={state.data.data}
-            openModal={openModalOrder}
-          />
+        {state.data.length && (
+          <ConstructorContext.Provider value={{ addedIngredients }}>
+            <BurgerConstructor openModal={openModalOrder} />
+          </ConstructorContext.Provider>
         )}
       </main>
       {modal.visible && (
