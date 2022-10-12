@@ -5,7 +5,6 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
-
 import appStyles from './app.module.css';
 
 function App() {
