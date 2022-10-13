@@ -10,6 +10,8 @@ import { ConstructorContext } from '../../services/ConstructorContext';
 
 function App() {
   const URL = 'https://norma.nomoreparties.space/api/ingredients';
+  const ORDER_URL = 'https://norma.nomoreparties.space/api/orders';
+
   const [state, setState] = React.useState({
     isLoading: false,
     data: {},
@@ -19,16 +21,44 @@ function App() {
     ingredient: null,
   });
   const [addedIngredients, setAddedIngredients] = React.useState([]);
+  const [orderData, setOrderData] = React.useState({});
 
   function closeModal() {
     setModal({ ingredient: null, visible: false });
   }
 
   function openModalOrder() {
+    const addedIngredientsID = {
+      ingredients: addedIngredients.map((el) => el._id),
+    };
+    console.log(JSON.stringify(addedIngredientsID));
+
     setModal({
       visible: true,
       ingredient: null,
     });
+
+    const postOrder = async () => {
+      try {
+        const response = await fetch(ORDER_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+          },
+          body: JSON.stringify(addedIngredientsID),
+        });
+        if (!response.ok) {
+          throw new Error('Error occurred!');
+        }
+        const data = await response.json();
+        setOrderData(data);
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    postOrder();
   }
 
   function openModalIngredient(ingredient) {
@@ -85,7 +115,7 @@ function App() {
           {modal.ingredient ? (
             <IngredientDetails ingredient={modal.ingredient} />
           ) : (
-            <OrderDetails />
+            <OrderDetails orderNumber={orderData.order.number} />
           )}
         </Modal>
       )}
