@@ -5,12 +5,14 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
-import appStyles from './app.module.css';
 import { ConstructorContext } from '../../services/ConstructorContext';
+import { baseURL } from '../../services/api';
+
+import appStyles from './app.module.css';
 
 function App() {
-  const URL = 'https://norma.nomoreparties.space/api/ingredients';
-  const ORDER_URL = 'https://norma.nomoreparties.space/api/orders';
+  const dataURL = `${baseURL}/ingredients`;
+  const orderURL = `${baseURL}/orders`;
 
   const [state, setState] = React.useState({
     isLoading: false,
@@ -40,7 +42,7 @@ function App() {
 
     const postOrder = async () => {
       try {
-        const response = await fetch(ORDER_URL, {
+        const response = await fetch(orderURL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json;charset=utf-8',
@@ -72,7 +74,7 @@ function App() {
     const getingridientsData = async () => {
       try {
         setState({ ...state, isLoading: true });
-        const result = await fetch(URL);
+        const result = await fetch(dataURL);
         if (!result.ok) {
           throw new Error('Error occurred!');
         }
@@ -115,7 +117,7 @@ function App() {
           {modal.ingredient ? (
             <IngredientDetails ingredient={modal.ingredient} />
           ) : (
-            <OrderDetails orderNumber={orderData.order.number} />
+            <OrderDetails orderData={orderData} />
           )}
         </Modal>
       )}
