@@ -101,15 +101,15 @@ function App() {
       <AppHeader />
       <main className={appStyles.main}>
         {state.data.length && (
-          <BurgerIngredients
-            data={state.data}
-            openModal={openModalIngredient}
-          />
-        )}
-        {state.data.length && (
-          <ConstructorContext.Provider value={{ addedIngredients }}>
-            <BurgerConstructor openModal={openModalOrder} />
-          </ConstructorContext.Provider>
+          <>
+            <BurgerIngredients
+              data={state.data}
+              openModal={openModalIngredient}
+            />
+            <ConstructorContext.Provider value={{ addedIngredients }}>
+              <BurgerConstructor openModal={openModalOrder} />
+            </ConstructorContext.Provider>
+          </>
         )}
       </main>
       {modal.visible && (
