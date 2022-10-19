@@ -1,10 +1,12 @@
 import React from 'react';
 import done from '../../images/done.png';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import orderStyles from './order-details.module.css';
 
-function OrderDetails({ orderData }) {
+function OrderDetails() {
+  const orderData = useSelector((store) => store.ingredientsReducer.order);
   return (
     <div className={`mt-30 mb-30 ${orderStyles.container}`}>
       {orderData.success && (
@@ -31,9 +33,5 @@ function OrderDetails({ orderData }) {
     </div>
   );
 }
-
-OrderDetails.propTypes = {
-  orderNumber: PropTypes.number.isRequired,
-};
 
 export default OrderDetails;

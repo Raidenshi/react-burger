@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import IngredientTabs from '../ingredient-tabs/ingredient-tabs';
 import IngredientsCard from '../ingredients-card/ingredients-card';
 import dataProps from '../../utils/types';
-
 import ingredientsStyles from './burger-ingredients.module.css';
+import { useSelector } from 'react-redux';
 
-function BurgerIngredients({ data, openModal }) {
+function BurgerIngredients({ openModal }) {
+  const data = useSelector((store) => store.ingredientsReducer.data);
   return (
     <div className={ingredientsStyles.container}>
       <h1 className="pt-10 pb-5  text text_type_main-large">Соберите бургер</h1>
@@ -57,7 +58,6 @@ function BurgerIngredients({ data, openModal }) {
 }
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(dataProps).isRequired,
   openModal: PropTypes.func.isRequired,
 };
 

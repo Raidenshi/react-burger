@@ -8,10 +8,9 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import constructorStyles from './burger-constructor.module.css';
-import { ConstructorContext } from '../../services/ConstructorContext';
 
 function BurgerConstructor({ openModal }) {
-  const { addedIngredients } = React.useContext(ConstructorContext);
+  const { addedIngredients } = [];
 
   const createList = (el, i) => {
     const checkInMiddle = i > 0 && i !== addedIngredients.length - 1;
@@ -49,14 +48,10 @@ function BurgerConstructor({ openModal }) {
 
   return (
     <div className={constructorStyles.container}>
-      <ul className={constructorStyles.list}>
-        {addedIngredients.map(createList)}
-      </ul>
+      <ul className={constructorStyles.list}></ul>
       <div className={constructorStyles.order}>
         <div className="mr-10">
-          <span className="text text_type_digits-medium mr-2">
-            {calculatePrice(addedIngredients)}
-          </span>
+          <span className="text text_type_digits-medium mr-2"></span>
           <CurrencyIcon type="primary" />
         </div>
         <Button
