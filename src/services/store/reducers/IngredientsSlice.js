@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  dataRequest: false,
+  dataFailed: false,
   data: [],
   constructorData: [],
   currentIngredient: {},

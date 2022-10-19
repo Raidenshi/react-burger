@@ -6,7 +6,8 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { ConstructorContext } from '../../services/ConstructorContext';
-import { baseURL } from '../../services/api';
+import { baseURL } from '../../utils/api';
+import { request } from '../../utils/request';
 
 import appStyles from './app.module.css';
 
@@ -42,17 +43,13 @@ function App() {
 
     const postOrder = async () => {
       try {
-        const response = await fetch(orderURL, {
+        const data = await request(orderURL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json;charset=utf-8',
           },
           body: JSON.stringify(addedIngredientsID),
         });
-        if (!response.ok) {
-          throw new Error('Error occurred!');
-        }
-        const data = await response.json();
         setOrderData(data);
         console.log(data);
       } catch (err) {
@@ -74,11 +71,7 @@ function App() {
     const getingridientsData = async () => {
       try {
         setState({ ...state, isLoading: true });
-        const result = await fetch(dataURL);
-        if (!result.ok) {
-          throw new Error('Error occurred!');
-        }
-        const ingrData = await result.json();
+        const ingrData = await request(dataURL);
         setState({ isLoading: false, data: ingrData.data });
         setAddedIngredients([
           ingrData.data[0],
