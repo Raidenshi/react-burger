@@ -6,11 +6,29 @@ import {
   CurrencyIcon,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDrop } from 'react-dnd';
+import { useDispatch, useSelector } from 'react-redux';
+import { ADD_INGREDIENT } from '../../services/store/reducers/IngredientsSlice';
 
 import constructorStyles from './burger-constructor.module.css';
 
 function BurgerConstructor({ openModal }) {
-  const { addedIngredients } = [];
+  const dispatch = useDispatch();
+
+  const [{ border }, drop] = useDrop(() => ({
+    accept: 'ingredient',
+    drop(item) {
+      console.log('lol');
+      dispatch(ADD_INGREDIENT(item.element));
+    },
+    collect: (monitor) => ({
+      border: monitor.canDrop() ? '2px solid #4c4cff' : '2px solid transparent',
+    }),
+  }));
+
+  const addedIngredients = useSelector(
+    (store) => store.ingredientsReducer.addedIngredients
+  );
 
   const createList = (el, i) => {
     const checkInMiddle = i > 0 && i !== addedIngredients.length - 1;
@@ -35,7 +53,7 @@ function BurgerConstructor({ openModal }) {
       };
     }
     return (
-      <li className="mr-4" key={`${el._id}${i}`}>
+      <li className={` ${constructorStyles.item}`} key={`${el._id}${i}`}>
         {checkInMiddle && <DragIcon type="primary" />}
         <ConstructorElement {...constructorProps} />
       </li>
@@ -48,10 +66,18 @@ function BurgerConstructor({ openModal }) {
 
   return (
     <div className={constructorStyles.container}>
-      <ul className={constructorStyles.list}></ul>
+      <ul
+        className={constructorStyles.list}
+        style={{ border: border }}
+        ref={drop}
+      >
+        {addedIngredients.map((el, i) => createList(el, i))}
+      </ul>
       <div className={constructorStyles.order}>
         <div className="mr-10">
-          <span className="text text_type_digits-medium mr-2"></span>
+          <span className="text text_type_digits-medium mr-2">
+            {calculatePrice(addedIngredients)}
+          </span>
           <CurrencyIcon type="primary" />
         </div>
         <Button

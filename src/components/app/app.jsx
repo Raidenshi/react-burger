@@ -12,6 +12,8 @@ import {
 } from '../../services/store/reducers/IngredientsSlice';
 
 import appStyles from './app.module.css';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 function App() {
   const dispatch = useDispatch();
@@ -45,8 +47,10 @@ function App() {
     <>
       <AppHeader />
       <main className={appStyles.main}>
-        <BurgerIngredients openModal={openModalIngredient} />
-        <BurgerConstructor openModal={openModalOrder} />
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients openModal={openModalIngredient} />
+          <BurgerConstructor openModal={openModalOrder} />
+        </DndProvider>
       </main>
       {modal.visible && <Modal closeModal={closeModal} />}
     </>

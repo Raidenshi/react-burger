@@ -4,10 +4,18 @@ import IngredientTabs from '../ingredient-tabs/ingredient-tabs';
 import IngredientsCard from '../ingredients-card/ingredients-card';
 import ingredientsStyles from './burger-ingredients.module.css';
 import { useSelector } from 'react-redux';
+import { useDrag } from 'react-dnd';
 
 function BurgerIngredients({ openModal }) {
   const data = useSelector((store) => store.ingredientsReducer.data);
   const [current, setCurrent] = React.useState('Булки');
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: 'ingredient',
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
 
   const refBun = React.useRef();
   const refSauce = React.useRef();
@@ -34,26 +42,15 @@ function BurgerIngredients({ openModal }) {
       refMain.current.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const sorted = {
-    bun: [],
-    sauce: [],
-    main: [],
-  };
-
-  data.forEach((el) => {
-    if (el.type === 'bun')
-      sorted.bun.push(
-        <IngredientsCard element={el} key={el._id} openModal={openModal} />
-      );
-    if (el.type === 'sauce')
-      sorted.sauce.push(
-        <IngredientsCard element={el} key={el._id} openModal={openModal} />
-      );
-    if (el.type === 'main')
-      sorted.main.push(
-        <IngredientsCard element={el} key={el._id} openModal={openModal} />
-      );
-  });
+  const bun = React.useMemo(() =>
+    data.filter((el) => el.type === 'bun', [data])
+  );
+  const sauce = React.useMemo(() =>
+    data.filter((el) => el.type === 'sauce', [data])
+  );
+  const main = React.useMemo(() =>
+    data.filter((el) => el.type === 'main', [data])
+  );
 
   return (
     <div className={ingredientsStyles.container}>
@@ -67,15 +64,27 @@ function BurgerIngredients({ openModal }) {
         <h2 className="text text_type_main-medium" ref={refBun}>
           Булки
         </h2>
-        <ul className={ingredientsStyles.ingredients}>{sorted.bun}</ul>
+        <ul className={ingredientsStyles.ingredients}>
+          {bun.map((el) => (
+            <IngredientsCard key={el._id} element={el} openModal={openModal} />
+          ))}
+        </ul>
         <h2 className="text text_type_main-medium mt-10" ref={refSauce}>
           Соусы
         </h2>
-        <ul className={ingredientsStyles.ingredients}>{sorted.sauce}</ul>
+        <ul className={ingredientsStyles.ingredients}>
+          {sauce.map((el) => (
+            <IngredientsCard key={el._id} element={el} openModal={openModal} />
+          ))}
+        </ul>
         <h2 className="text text_type_main-medium mt-10" ref={refMain}>
           Начинки
         </h2>
-        <ul className={ingredientsStyles.ingredients}>{sorted.main}</ul>
+        <ul className={ingredientsStyles.ingredients}>
+          {main.map((el) => (
+            <IngredientsCard key={el._id} element={el} openModal={openModal} />
+          ))}
+        </ul>
       </div>
     </div>
   );
