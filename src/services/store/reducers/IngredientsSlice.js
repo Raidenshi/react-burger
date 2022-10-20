@@ -52,6 +52,9 @@ export const ingredientsSlice = createSlice({
     ADD_INGREDIENT: (state, action) => {
       state.addedIngredients.push(action.payload);
     },
+    UPDATE_CONSTRUCTOR_LIST: (state, action) => {
+      state.addedIngredients = action.payload;
+    },
   },
 });
 
@@ -65,6 +68,7 @@ export const {
   POST_ORDER_SUCCESS,
   POST_ORDER_FAILED,
   ADD_INGREDIENT,
+  UPDATE_CONSTRUCTOR_LIST,
 } = ingredientsSlice.actions;
 
 export default ingredientsSlice.reducer;

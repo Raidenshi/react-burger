@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import {
+  Counter,
+  CurrencyIcon,
+} from '@ya.praktikum/react-developer-burger-ui-components';
 import dataProps from '../../utils/types';
 
 import cardStyles from './ingredients-card.module.css';
 import { useDrag } from 'react-dnd';
 
 function IngredientsCard({ element, openModal }) {
+  const [counter, setCounter] = React.useState(0);
   const [{ opacity }, drag] = useDrag(() => ({
     type: 'ingredient',
     item: { element },
@@ -25,6 +29,7 @@ function IngredientsCard({ element, openModal }) {
         ref={drag}
         style={{ opacity: opacity }}
       />
+      {counter > 0 && <Counter count={counter} size="default" />}
       <div className="mt-1 mb-1">
         <span className="text text_type_digits-default mr-3">
           {element.price}

@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  ConstructorElement,
-  DragIcon,
   CurrencyIcon,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_INGREDIENT } from '../../services/store/reducers/IngredientsSlice';
+import ConstructorList from '../constructor-list/constructor-list';
 
 import constructorStyles from './burger-constructor.module.css';
 
@@ -18,7 +17,6 @@ function BurgerConstructor({ openModal }) {
   const [{ border }, drop] = useDrop(() => ({
     accept: 'ingredient',
     drop(item) {
-      console.log('lol');
       dispatch(ADD_INGREDIENT(item.element));
     },
     collect: (monitor) => ({
@@ -30,49 +28,13 @@ function BurgerConstructor({ openModal }) {
     (store) => store.ingredientsReducer.addedIngredients
   );
 
-  const createList = (el, i) => {
-    const checkInMiddle = i > 0 && i !== addedIngredients.length - 1;
-    let constructorProps = {
-      text: el.name,
-      price: el.price,
-      thumbnail: el.image,
-    };
-    if (i === 0) {
-      constructorProps = {
-        ...constructorProps,
-        type: 'top',
-        text: `${el.name} (верх)`,
-        isLocked: true,
-      };
-    } else if (i === addedIngredients.length - 1) {
-      constructorProps = {
-        ...constructorProps,
-        type: 'bottom',
-        text: `${el.name} (низ)`,
-        isLocked: true,
-      };
-    }
-    return (
-      <li className={` ${constructorStyles.item}`} key={`${el._id}${i}`}>
-        {checkInMiddle && <DragIcon type="primary" />}
-        <ConstructorElement {...constructorProps} />
-      </li>
-    );
-  };
-
   const calculatePrice = (list) => {
     return list.reduce((a, b) => a + b.price, 0);
   };
 
   return (
-    <div className={constructorStyles.container}>
-      <ul
-        className={constructorStyles.list}
-        style={{ border: border }}
-        ref={drop}
-      >
-        {addedIngredients.map((el, i) => createList(el, i))}
-      </ul>
+    <div className={constructorStyles.container} ref={drop}>
+      <ConstructorList border={border} />
       <div className={constructorStyles.order}>
         <div className="mr-10">
           <span className="text text_type_digits-medium mr-2">
