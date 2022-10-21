@@ -50,7 +50,44 @@ export const ingredientsSlice = createSlice({
       state.modal = '';
     },
     ADD_INGREDIENT: (state, action) => {
-      state.addedIngredients.push(action.payload);
+      if (
+        state.addedIngredients.length === 0 &&
+        action.payload.type === 'bun'
+      ) {
+        state.addedIngredients = [action.payload, action.payload];
+      } else if (
+        state.addedIngredients.length > 0 &&
+        state.addedIngredients[0].type == 'bun' &&
+        action.payload.type === 'bun'
+      ) {
+        state.addedIngredients = [
+          action.payload,
+          ...state.addedIngredients.slice(1, -1),
+          action.payload,
+        ];
+      } else if (
+        state.addedIngredients.length > 0 &&
+        state.addedIngredients[0].type == 'bun' &&
+        action.payload.type !== 'bun'
+      ) {
+        state.addedIngredients = [
+          state.addedIngredients[0],
+          ...state.addedIngredients.slice(1, -1),
+          action.payload,
+          state.addedIngredients.at(-1),
+        ];
+      } else if (
+        state.addedIngredients.length > 0 &&
+        action.payload.type === 'bun'
+      ) {
+        state.addedIngredients = [
+          action.payload,
+          ...state.addedIngredients,
+          action.payload,
+        ];
+      } else if (action.payload.type !== 'bun') {
+        state.addedIngredients.push(action.payload);
+      }
     },
     UPDATE_CONSTRUCTOR_LIST: (state, action) => {
       state.addedIngredients = action.payload;

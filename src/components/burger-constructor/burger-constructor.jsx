@@ -17,7 +17,7 @@ function BurgerConstructor({ openModal }) {
   const [{ border }, drop] = useDrop(() => ({
     accept: 'ingredient',
     drop(item) {
-      dispatch(ADD_INGREDIENT(item.element));
+      dispatch(ADD_INGREDIENT({ ...item.element }));
     },
     collect: (monitor) => ({
       border: monitor.canDrop() ? '2px solid #4c4cff' : '2px solid transparent',
