@@ -5,12 +5,20 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import dataProps from '../../utils/types';
+import { useDrag } from 'react-dnd';
+import { useSelector } from 'react-redux';
 
 import cardStyles from './ingredients-card.module.css';
-import { useDrag } from 'react-dnd';
 
 function IngredientsCard({ element, openModal }) {
-  const [counter, setCounter] = React.useState(0);
+  const addedIngredients = useSelector(
+    (store) => store.ingredientsReducer.addedIngredients
+  );
+
+  const count = React.useMemo(
+    () => addedIngredients.filter((el) => element._id === el._id).length
+  );
+
   const [{ opacity }, drag] = useDrag(() => ({
     type: 'ingredient',
     item: { element },
@@ -29,7 +37,7 @@ function IngredientsCard({ element, openModal }) {
         ref={drag}
         style={{ opacity: opacity }}
       />
-      {counter > 0 && <Counter count={counter} size="default" />}
+      {count > 0 && <Counter count={count} size="default" />}
       <div className="mt-1 mb-1">
         <span className="text text_type_digits-default mr-3">
           {element.price}

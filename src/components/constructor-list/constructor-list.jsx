@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
+import PropTypes from 'prop-types';
 import { UPDATE_CONSTRUCTOR_LIST } from '../../services/store/reducers/IngredientsSlice';
 
 import styles from './constructor-list.module.css';
@@ -38,3 +38,7 @@ function ConstructorList({ border }) {
 }
 
 export default ConstructorList;
+
+ConstructorList.propTypes = {
+  border: PropTypes.string.isRequired,
+};
