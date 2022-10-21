@@ -7,6 +7,7 @@ import { useDrop, useDrag } from 'react-dnd';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './constructor-list-card.module.css';
+import { UPDATE_CONSTRUCTOR_LIST } from '../../services/store/reducers/IngredientsSlice';
 
 function ConstrctorListCard({ index, item, moveCard }) {
   const dispatch = useDispatch();
@@ -82,7 +83,10 @@ function ConstrctorListCard({ index, item, moveCard }) {
   const preventDefault = (e) => e.preventDefault();
 
   const handleClose = (item) => {
-    const newList = addedIngredients.filt;
+    const newList = addedIngredients.filter(
+      (el) => el.uniqueID !== item.uniqueID
+    );
+    dispatch(UPDATE_CONSTRUCTOR_LIST(newList));
   };
 
   return (
