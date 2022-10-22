@@ -3,40 +3,48 @@ import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import Modal from '../modal/modal';
+import { useDispatch, useSelector } from 'react-redux';
 import { getData } from '../../services/store/actions/getData';
 import { postOrder } from '../../services/store/actions/postOrder';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   CLOSE_MODAL,
-  OPEN_MODAL_INGREDIENT,
+  OPEN_MODAL,
+} from '../../services/store/reducers/modalSlice';
+import {
+  CLEAR_CURRENT_INGREDIENT,
+  SET_CURRENT_INGREDIENT,
 } from '../../services/store/reducers/IngredientsSlice';
-
-import appStyles from './app.module.css';
+import { CLEAR_ORDER } from '../../services/store/reducers/orderSlice';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+
+import appStyles from './app.module.css';
 
 function App() {
   const dispatch = useDispatch();
   const data = useSelector((store) => store.ingredientsReducer.data);
-  const addedIngredients = [data[0], data[4], data[5], data[4]];
-  const [modal, setModal] = React.useState({ visible: false });
+  const addedIngredients = useSelector(
+    (store) => store.ingredientsReducer.addedIngredients
+  );
+  const isVisible = useSelector((store) => store.modalReducer.isVisible);
 
   function closeModal() {
-    setModal({ visible: false });
     dispatch(CLOSE_MODAL());
+    dispatch(CLEAR_ORDER());
+    dispatch(CLEAR_CURRENT_INGREDIENT());
   }
 
   function openModalOrder() {
     const addedIngredientsID = {
       ingredients: addedIngredients.map((el) => el._id),
     };
-    setModal({ visible: true });
+    dispatch(OPEN_MODAL('order'));
     dispatch(postOrder(addedIngredientsID));
   }
 
   function openModalIngredient(ingredient) {
-    setModal({ visible: true });
-    dispatch(OPEN_MODAL_INGREDIENT(ingredient));
+    dispatch(OPEN_MODAL('ingredient'));
+    dispatch(SET_CURRENT_INGREDIENT(ingredient));
   }
 
   React.useEffect(() => {
@@ -52,7 +60,7 @@ function App() {
           <BurgerConstructor openModal={openModalOrder} />
         </DndProvider>
       </main>
-      {modal.visible && <Modal closeModal={closeModal} />}
+      {isVisible && <Modal closeModal={closeModal} />}
     </>
   );
 }

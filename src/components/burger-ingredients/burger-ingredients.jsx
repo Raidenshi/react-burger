@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import IngredientTabs from '../ingredient-tabs/ingredient-tabs';
 import IngredientsCard from '../ingredients-card/ingredients-card';
-import ingredientsStyles from './burger-ingredients.module.css';
 import { useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
+import { filterByType } from '../../utils/filterByType';
+
+import ingredientsStyles from './burger-ingredients.module.css';
 
 function BurgerIngredients({ openModal }) {
   const data = useSelector((store) => store.ingredientsReducer.data);
@@ -42,15 +44,9 @@ function BurgerIngredients({ openModal }) {
       refMain.current.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const bun = React.useMemo(() =>
-    data.filter((el) => el.type === 'bun', [data])
-  );
-  const sauce = React.useMemo(() =>
-    data.filter((el) => el.type === 'sauce', [data])
-  );
-  const main = React.useMemo(() =>
-    data.filter((el) => el.type === 'main', [data])
-  );
+  const bun = React.useMemo(() => filterByType(data, 'bun'), [data]);
+  const sauce = React.useMemo(() => filterByType(data, 'sauce'), [data]);
+  const main = React.useMemo(() => filterByType(data, 'main'), [data]);
 
   return (
     <div className={ingredientsStyles.container}>

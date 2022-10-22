@@ -13,7 +13,7 @@ const modalRoot = document.getElementById('react-modals');
 
 function Modal({ closeModal }) {
   const ref = React.useRef(null);
-  const modal = useSelector((store) => store.ingredientsReducer.modal);
+  const modal = useSelector((store) => store.modalReducer.modal);
 
   React.useEffect(() => {
     ref.current.focus();

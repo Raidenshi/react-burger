@@ -4,7 +4,7 @@ import {
   POST_ORDER,
   POST_ORDER_FAILED,
   POST_ORDER_SUCCESS,
-} from '../reducers/IngredientsSlice';
+} from '../reducers/orderSlice';
 
 export const postOrder = (addedIngredientsID) => async (dispatch) => {
   try {
@@ -18,7 +18,6 @@ export const postOrder = (addedIngredientsID) => async (dispatch) => {
     });
     dispatch(POST_ORDER_SUCCESS(response));
   } catch (e) {
-    dispatch(POST_ORDER_FAILED());
-    console.log(e);
+    dispatch(POST_ORDER_FAILED(e));
   }
 };

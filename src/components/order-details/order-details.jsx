@@ -1,12 +1,11 @@
 import React from 'react';
 import done from '../../images/done.png';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import orderStyles from './order-details.module.css';
 
 function OrderDetails() {
-  const orderData = useSelector((store) => store.ingredientsReducer.order);
+  const orderData = useSelector((store) => store.orderReducer.order);
   return (
     <div className={`mt-30 mb-30 ${orderStyles.container}`}>
       {orderData.success && (

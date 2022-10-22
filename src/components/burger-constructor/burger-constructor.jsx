@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import {
   CurrencyIcon,
@@ -27,9 +27,10 @@ function BurgerConstructor({ openModal }) {
     (store) => store.ingredientsReducer.addedIngredients
   );
 
-  const calculatePrice = (list) => {
-    return list.reduce((a, b) => a + b.price, 0);
-  };
+  const calculatedPrice = useMemo(
+    () => addedIngredients.reduce((a, b) => a + b.price, 0),
+    [addedIngredients]
+  );
 
   return (
     <div className={constructorStyles.container} ref={drop}>
@@ -37,7 +38,7 @@ function BurgerConstructor({ openModal }) {
       <div className={constructorStyles.order}>
         <div className="mr-10">
           <span className="text text_type_digits-medium mr-2">
-            {calculatePrice(addedIngredients)}
+            {calculatedPrice}
           </span>
           <CurrencyIcon type="primary" />
         </div>
