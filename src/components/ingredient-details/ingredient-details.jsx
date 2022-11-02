@@ -1,10 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import dataProps from '../../utils/types';
+import { useSelector } from 'react-redux';
 
 import ingredientStyles from './ingredient-details.module.css';
 
-function IngredientDetails({ ingredient }) {
+function IngredientDetails() {
+  const ingredient = useSelector(
+    (store) => store.ingredientsReducer.currentIngredient
+  );
   return (
     <div className={ingredientStyles.container}>
       <p className="text text_type_main-large mt-10 mr-10 ml-10">
@@ -13,7 +17,7 @@ function IngredientDetails({ ingredient }) {
       <img
         src={ingredient.image_large}
         alt={ingredient.name}
-        className="mb-4"
+        className={`${ingredientStyles.image} mb-4`}
       />
       <p className="text text_type_main-medium mb-8">{ingredient.name}</p>
       <div className={ingredientStyles.details}>
@@ -25,9 +29,5 @@ function IngredientDetails({ ingredient }) {
     </div>
   );
 }
-
-IngredientDetails.propTypes = {
-  ingredient: dataProps,
-};
 
 export default IngredientDetails;

@@ -2,85 +2,65 @@ import React from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
-import OrderDetails from '../order-details/order-details';
+import { useDispatch, useSelector } from 'react-redux';
+import { getData } from '../../services/store/actions/getData';
+import { postOrder } from '../../services/store/actions/postOrder';
+import {
+  CLOSE_MODAL,
+  OPEN_MODAL,
+} from '../../services/store/reducers/modalSlice';
+import {
+  CLEAR_CURRENT_INGREDIENT,
+  SET_CURRENT_INGREDIENT,
+} from '../../services/store/reducers/IngredientsSlice';
+import { CLEAR_ORDER } from '../../services/store/reducers/orderSlice';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import appStyles from './app.module.css';
 
 function App() {
-  const URL = 'https://norma.nomoreparties.space/api/ingredients';
-  const [state, setState] = React.useState({
-    isLoading: false,
-    data: {},
-  });
-  const [modal, setModal] = React.useState({
-    visible: false,
-    ingredient: null,
-  });
+  const dispatch = useDispatch();
+  const data = useSelector((store) => store.ingredientsReducer.data);
+  const addedIngredients = useSelector(
+    (store) => store.ingredientsReducer.addedIngredients
+  );
+  const isVisible = useSelector((store) => store.modalReducer.isVisible);
 
   function closeModal() {
-    setModal({ ingredient: null, visible: false });
+    dispatch(CLOSE_MODAL());
+    dispatch(CLEAR_ORDER());
+    dispatch(CLEAR_CURRENT_INGREDIENT());
   }
 
   function openModalOrder() {
-    setModal({
-      visible: true,
-      ingredient: null,
-    });
+    const addedIngredientsID = {
+      ingredients: addedIngredients.map((el) => el._id),
+    };
+    dispatch(OPEN_MODAL('order'));
+    dispatch(postOrder(addedIngredientsID));
   }
 
   function openModalIngredient(ingredient) {
-    setModal({
-      visible: true,
-      ingredient: ingredient,
-    });
+    dispatch(OPEN_MODAL('ingredient'));
+    dispatch(SET_CURRENT_INGREDIENT(ingredient));
   }
 
   React.useEffect(() => {
-    const getingridientsData = async () => {
-      try {
-        setState({ ...state, isLoading: true });
-        const result = await fetch(URL);
-        if (!result.ok) {
-          throw new Error('Error occurred!');
-        }
-        const ingrData = await result.json();
-        setState({ isLoading: false, data: ingrData });
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    getingridientsData();
+    dispatch(getData());
   }, []);
 
   return (
     <>
       <AppHeader />
       <main className={appStyles.main}>
-        {state.data.data && (
-          <BurgerIngredients
-            data={state.data.data}
-            openModal={openModalIngredient}
-          />
-        )}
-        {state.data.data && (
-          <BurgerConstructor
-            data={state.data.data}
-            openModal={openModalOrder}
-          />
-        )}
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients openModal={openModalIngredient} />
+          <BurgerConstructor openModal={openModalOrder} />
+        </DndProvider>
       </main>
-      {modal.visible && (
-        <Modal closeModal={closeModal}>
-          {modal.ingredient ? (
-            <IngredientDetails ingredient={modal.ingredient} />
-          ) : (
-            <OrderDetails />
-          )}
-        </Modal>
-      )}
+      {isVisible && <Modal closeModal={closeModal} />}
     </>
   );
 }
