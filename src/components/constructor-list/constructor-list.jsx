@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { UPDATE_CONSTRUCTOR_LIST } from '../../services/store/reducers/IngredientsSlice';
@@ -23,8 +23,15 @@ function ConstructorList({ border }) {
     [addedIngredients, dispatch]
   );
 
+  const overflow = useMemo(() => {
+    if (addedIngredients.length > 7) {
+      return styles.overflow;
+    }
+    return '';
+  }, [addedIngredients]);
+
   return (
-    <ul className={styles.list} style={{ border: border }}>
+    <ul className={`${styles.list} ${overflow}`} style={{ border: border }}>
       {addedIngredients.map((item, index) => (
         <ConstrctorListCard
           key={`${item._id}${index}`}
