@@ -12,3 +12,14 @@
 
   width: 480px;
 }
+
+.link {
+  color: #4c4cff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.link:hover {
+  color: white;
+  transition: 0.3s;
+}
