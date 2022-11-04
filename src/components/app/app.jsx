@@ -11,6 +11,7 @@ import ProfilePage from '../../pages/profile/profile-page';
 import ProtectedRoute from '../protected-route/protected-route';
 import { useDispatch } from 'react-redux';
 import { authUser } from '../../services/store/actions/auth';
+import IngredientPage from '../../pages/ingredient/ingredient-page';
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="ingredient/:id" element={<IngredientPage />} />
           <Route path="*" element={<Page404 />} />
         </Route>
       </Routes>

@@ -83,3 +83,20 @@ export const authUser = () => async (dispatch) => {
     }
   }
 };
+
+export const updateUser = (form) => async (dispatch) => {
+  try {
+    const response = await request(`${baseURL}/auth/user`, {
+      method: 'PATCH',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: getCookie('token'),
+      },
+      body: JSON.stringify(form),
+    });
+    dispatch(SET_USER(response));
+  } catch (e) {}
+};

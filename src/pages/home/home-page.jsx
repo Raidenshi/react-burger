@@ -18,9 +18,12 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import styles from './home-page.module.css';
+import { useNavigate } from 'react-router-dom';
 
 function HomePage() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector((store) => store.userReducer.user);
   const addedIngredients = useSelector(
     (store) => store.ingredientsReducer.addedIngredients
   );
@@ -36,8 +39,12 @@ function HomePage() {
     const addedIngredientsID = {
       ingredients: addedIngredients.map((el) => el._id),
     };
-    dispatch(OPEN_MODAL('order'));
-    dispatch(postOrder(addedIngredientsID));
+    if (user) {
+      dispatch(OPEN_MODAL('order'));
+      dispatch(postOrder(addedIngredientsID));
+    } else {
+      navigate('/login');
+    }
   }
 
   function openModalIngredient(ingredient) {

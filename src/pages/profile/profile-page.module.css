@@ -13,6 +13,8 @@
 }
 
 .button {
+  display: flex;
+  align-items: center;
   width: 320px;
   height: 64px;
 
@@ -21,6 +23,7 @@
   background-color: transparent;
   border: none;
   color: #8585ad;
+  text-decoration: none;
 }
 
 .text {

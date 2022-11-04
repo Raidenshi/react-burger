@@ -2,12 +2,15 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import ingredientStyles from './ingredient-details.module.css';
+import ingredientStyles from './ingredient-page.module.css';
 
-function IngredientDetails() {
-  const ingredient = useSelector(
-    (store) => store.ingredientsReducer.currentIngredient
-  );
+function IngredientPage() {
+  const { id } = useParams();
+  const data = useSelector((store) => store.ingredientsReducer.data);
+  console.log(data);
+  const ingredient = data.find((el) => el._id === id);
+  console.log(ingredient);
+
   return (
     <div className={ingredientStyles.container}>
       <p className="text text_type_main-large mt-10 mr-10 ml-10">
@@ -29,4 +32,4 @@ function IngredientDetails() {
   );
 }
 
-export default IngredientDetails;
+export default IngredientPage;

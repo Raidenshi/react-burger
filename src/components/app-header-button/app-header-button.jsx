@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 
 import buttonStyles from './app-header-button.module.css';
 import { NavLink } from 'react-router-dom';
+import { isActiveLink } from '../../utils/isActiveLink';
 
 function AppHeaderButton({ children, text, to }) {
   return (
     <NavLink
       className={`${buttonStyles.button} p-4 `}
-      style={({ isActive }) => ({ color: isActive ? 'white' : '' })}
+      style={isActiveLink}
       to={to}
     >
       {children}

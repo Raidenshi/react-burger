@@ -3,12 +3,14 @@ import {
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, Navigate } from 'react-router-dom';
 import { handleInputChange } from '../../utils/handleInputChange';
 
 import styles from './forms.module.css';
 
 function ResetPage() {
+  const user = useSelector((store) => store.userReducer.user);
   const [form, setForm] = useState({
     password: '',
     token: '',
@@ -18,6 +20,10 @@ function ResetPage() {
     e.preventDefault();
     console.log(form);
   };
+
+  if (user) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className={styles.container}>

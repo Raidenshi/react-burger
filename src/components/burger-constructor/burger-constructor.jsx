@@ -47,6 +47,7 @@ function BurgerConstructor({ openModal }) {
           size="medium"
           htmlType="button"
           onClick={openModal}
+          disabled={addedIngredients.length < 1}
         >
           Оформить заказ
         </Button>
