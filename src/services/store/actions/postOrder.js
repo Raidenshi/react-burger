@@ -18,6 +18,6 @@ export const postOrder = (addedIngredientsID) => async (dispatch) => {
     });
     dispatch(POST_ORDER_SUCCESS(response));
   } catch (e) {
-    dispatch(POST_ORDER_FAILED(e));
+    dispatch(POST_ORDER_FAILED(e.message));
   }
 };

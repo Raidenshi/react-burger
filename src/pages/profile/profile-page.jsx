@@ -1,9 +1,12 @@
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import styles from './profile-page.module.css';
 
 function ProfilePage() {
+  const user = useSelector((store) => store.userReducer.user);
+
   return (
     <div className={styles.container}>
       <div className={styles.menu}>
@@ -23,9 +26,28 @@ function ProfilePage() {
         </span>
       </div>
       <form>
-        <Input extraClass="mb-6" icon={'EditIcon'} placeholder={'Имя'} />
-        <Input extraClass="mb-6" icon={'EditIcon'} placeholder={'Логин'} />
-        <Input icon={'EditIcon'} placeholder={'Пароль'} />
+        <Input
+          extraClass="mb-6"
+          icon={'EditIcon'}
+          placeholder={'Имя'}
+          type={'text'}
+          value={user.name}
+          disabled={true}
+        />
+        <Input
+          extraClass="mb-6"
+          icon={'EditIcon'}
+          placeholder={'Логин'}
+          type={'email'}
+          value={user.email}
+          disabled={true}
+        />
+        <Input
+          icon={'EditIcon'}
+          placeholder={'Пароль'}
+          type={'password'}
+          disabled={true}
+        />
       </form>
     </div>
   );

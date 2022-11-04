@@ -1,32 +1,46 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  user: {},
+  user: null,
+
+  authRequest: false,
 
   registerRequest: false,
-  registerError: false,
 
   loginRequest: false,
-  loginError: false,
+
+  error: '',
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    AUTH_REQUEST: (state) => {
+      state.authRequest = true;
+    },
+    AUTH_SUCCESS: (state) => {
+      state.authRequest = false;
+    },
+    SET_USER: (state, action) => {
+      state.user = action.payload.user;
+    },
     REGISTER_REQUEST: (state) => {
       state.registerRequest = true;
     },
     REGISTER_SUCCESS: (state, action) => {
       state.registerRequest = false;
-      state.user = action.payload.user;
     },
     LOGIN_REQUEST: (state) => {
       state.loginRequest = true;
     },
     LOGIN_SUCCESS: (state, action) => {
       state.registerRequest = false;
-      state.user = action.payload.user;
+    },
+    ERROR: (state, action) => {
+      state.error = action.payload;
+      state.authRequest = false;
+      state.registerRequest = false;
     },
   },
 });
@@ -36,6 +50,10 @@ export const {
   REGISTER_SUCCESS,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
+  AUTH_REQUEST,
+  AUTH_SUCCESS,
+  SET_USER,
+  ERROR,
 } = userSlice.actions;
 
 export default userSlice.reducer;

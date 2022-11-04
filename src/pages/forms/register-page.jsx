@@ -3,14 +3,15 @@ import {
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { register } from '../../services/store/actions/auth';
 import { handleInputChange } from '../../utils/handleInputChange';
 
 import styles from './forms.module.css';
 
 function RegisterPage() {
+  const user = useSelector((store) => store.userReducer.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [form, setForm] = useState({
@@ -21,10 +22,12 @@ function RegisterPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(register(form)).then(() => {
-      navigate('/');
-    });
+    dispatch(register(form));
   };
+
+  if (user) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className={styles.container}>
