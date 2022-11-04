@@ -3,12 +3,16 @@ import {
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { login } from '../../services/store/actions/auth';
 import { handleInputChange } from '../../utils/handleInputChange';
 
 import styles from './forms.module.css';
 
 function LoginPage() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -16,7 +20,9 @@ function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
+    dispatch(login(form)).then(() => {
+      navigate('/');
+    });
   };
 
   return (

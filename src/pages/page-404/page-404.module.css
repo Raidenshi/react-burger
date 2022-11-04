@@ -1,0 +1,17 @@
+.link {
+  color: #4c4cff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.link:hover {
+  color: white;
+  transition: 0.3s;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

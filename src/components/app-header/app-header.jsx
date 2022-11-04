@@ -14,17 +14,17 @@ function AppHeader() {
     <header className={headerStyles.header}>
       <div className={headerStyles.container}>
         <nav className={headerStyles.navbar}>
-          <AppHeaderButton text="Конструктор" isActive={true}>
+          <AppHeaderButton text="Конструктор" to="/">
             <BurgerIcon type="primary" />
           </AppHeaderButton>
-          <AppHeaderButton text="Лента заказов">
+          <AppHeaderButton text="Лента заказов" to="*">
             <ListIcon type="secondary" />
           </AppHeaderButton>
         </nav>
         <a className={headerStyles.logo}>
           <Logo />
         </a>
-        <AppHeaderButton text="Личный кабинет">
+        <AppHeaderButton text="Личный кабинет" to="/profile">
           <ProfileIcon type="secondary" />
         </AppHeaderButton>
       </div>

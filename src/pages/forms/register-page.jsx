@@ -4,13 +4,14 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { register } from '../../services/store/actions/auth';
 import { handleInputChange } from '../../utils/handleInputChange';
 
 import styles from './forms.module.css';
 
 function RegisterPage() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [form, setForm] = useState({
     email: '',
@@ -20,7 +21,9 @@ function RegisterPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(register(form));
+    dispatch(register(form)).then(() => {
+      navigate('/');
+    });
   };
 
   return (

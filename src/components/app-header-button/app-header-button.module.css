@@ -3,4 +3,11 @@
   align-items: center;
 
   gap: 8px;
+
+  text-decoration: none;
+  color: #8585ad;
+}
+
+.active {
+  color: white;
 }

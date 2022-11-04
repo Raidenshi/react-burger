@@ -24,8 +24,9 @@ const userSlice = createSlice({
     LOGIN_REQUEST: (state) => {
       state.loginRequest = true;
     },
-    LOGIN_SUCCESS: (state) => {
+    LOGIN_SUCCESS: (state, action) => {
       state.registerRequest = false;
+      state.user = action.payload.user;
     },
   },
 });
