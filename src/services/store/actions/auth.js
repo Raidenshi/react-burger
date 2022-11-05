@@ -6,6 +6,9 @@ import {
   ERROR,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
+  PASSWORD_REQUEST,
+  PASSWORD_REQUEST_SUCCESS,
+  PASSWORD_RESET_SUCCESS,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   SET_USER,
@@ -66,6 +69,7 @@ export const authUser = () => async (dispatch) => {
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
     });
+
     dispatch(AUTH_SUCCESS());
     dispatch(SET_USER(response));
   } catch (e) {
@@ -78,8 +82,24 @@ export const authUser = () => async (dispatch) => {
         },
         body: JSON.stringify(refrToken),
       });
+
       setCookie('token', response.accessToken);
       sessionStorage.setItem('token', response.refreshToken);
+
+      const responseAgain = await request(`${baseURL}/auth/user`, {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: getCookie('token'),
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+      });
+      dispatch(AUTH_SUCCESS());
+      dispatch(SET_USER(responseAgain));
     }
   }
 };
@@ -98,5 +118,38 @@ export const updateUser = (form) => async (dispatch) => {
       body: JSON.stringify(form),
     });
     dispatch(SET_USER(response));
-  } catch (e) {}
+  } catch (e) {
+    dispatch(ERROR(e.message));
+  }
+};
+
+export const passwordForgotRequest = (form) => async (dispatch) => {
+  try {
+    dispatch(PASSWORD_REQUEST());
+    const response = await request(`${baseURL}/password-reset`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(form),
+    });
+    dispatch(PASSWORD_REQUEST_SUCCESS());
+  } catch (e) {
+    dispatch(ERROR(e.message));
+  }
+};
+
+export const passwordResetRequest = (form) => async (dispatch) => {
+  try {
+    const response = await request(`${baseURL}/password-reset/reset`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(form),
+    });
+    dispatch(PASSWORD_RESET_SUCCESS());
+  } catch (e) {
+    dispatch(ERROR(e.message));
+  }
 };

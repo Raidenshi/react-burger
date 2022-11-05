@@ -3,14 +3,19 @@ import {
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
+import { passwordResetRequest } from '../../services/store/actions/auth';
 import { handleInputChange } from '../../utils/handleInputChange';
 
 import styles from './forms.module.css';
 
 function ResetPage() {
+  const dispatch = useDispatch();
   const user = useSelector((store) => store.userReducer.user);
+  const resettingPassword = useSelector(
+    (store) => store.userReducer.resettingPassword
+  );
   const [form, setForm] = useState({
     password: '',
     token: '',
@@ -18,10 +23,10 @@ function ResetPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
+    dispatch(passwordResetRequest(form));
   };
 
-  if (user) {
+  if (!resettingPassword && user) {
     return <Navigate to="/" />;
   }
 

@@ -32,7 +32,7 @@ function ProfileForm() {
     if (form.password !== initPass) {
       changedFields = { ...changedFields, password: form.password };
     }
-    if (!changedFields) {
+    if (JSON.stringify(changedFields) !== '{}') {
       dispatch(updateUser(changedFields));
     }
   };

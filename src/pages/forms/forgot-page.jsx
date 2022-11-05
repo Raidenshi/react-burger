@@ -3,13 +3,16 @@ import {
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, Navigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { passwordForgotRequest } from '../../services/store/actions/auth';
 import { handleInputChange } from '../../utils/handleInputChange';
 
 import styles from './forms.module.css';
 
 function ForgotPage() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((store) => store.userReducer.user);
   const [form, setForm] = useState({
     email: '',
@@ -17,7 +20,9 @@ function ForgotPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
+    dispatch(passwordForgotRequest(form)).then(() => {
+      navigate('/reset-password');
+    });
   };
 
   if (user) {
@@ -38,7 +43,12 @@ function ForgotPage() {
           value={form.email}
           onChange={(e) => handleInputChange(e, form, setForm)}
         />
-        <Button type="primary" size="medium" extraClass="mb-20">
+        <Button
+          type="primary"
+          size="medium"
+          extraClass="mb-20"
+          htmlType="submit"
+        >
           Восстановить
         </Button>
         <p className="text text_type_main-default text_color_inactive mb-4">

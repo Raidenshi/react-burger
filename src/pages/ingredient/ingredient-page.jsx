@@ -7,10 +7,7 @@ import ingredientStyles from './ingredient-page.module.css';
 function IngredientPage() {
   const { id } = useParams();
   const data = useSelector((store) => store.ingredientsReducer.data);
-  console.log(data);
   const ingredient = data.find((el) => el._id === id);
-  console.log(ingredient);
-
   return (
     <div className={ingredientStyles.container}>
       <p className="text text_type_main-large mt-10 mr-10 ml-10">

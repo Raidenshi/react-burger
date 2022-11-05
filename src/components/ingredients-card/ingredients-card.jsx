@@ -9,9 +9,10 @@ import { useDrag } from 'react-dnd';
 import { useSelector } from 'react-redux';
 
 import cardStyles from './ingredients-card.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function IngredientsCard({ element, openModal }) {
+  const location = useLocation();
   const addedIngredients = useSelector(
     (store) => store.ingredientsReducer.addedIngredients
   );
@@ -30,7 +31,7 @@ function IngredientsCard({ element, openModal }) {
 
   return (
     <li className={`mt-6 mb-8 ml-4 mr-4 ${cardStyles.card}`}>
-      <Link to={`/ingredient/${element._id}`}>
+      <Link to={`ingredient/${element._id}`} state={{ background: location }}>
         <img
           src={element.image}
           alt={element.name}

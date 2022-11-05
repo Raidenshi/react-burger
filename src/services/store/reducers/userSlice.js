@@ -10,6 +10,9 @@ const initialState = {
 
   loginRequest: false,
 
+  passwordRequest: false,
+  resettingPassword: false,
+
   error: '',
 };
 
@@ -38,6 +41,16 @@ const userSlice = createSlice({
     LOGIN_SUCCESS: (state, action) => {
       state.registerRequest = false;
     },
+    PASSWORD_REQUEST: (state) => {
+      state.passwordRequest = true;
+    },
+    PASSWORD_REQUEST_SUCCESS: (state) => {
+      state.passwordRequest = false;
+      state.resettingPassword = true;
+    },
+    PASSWORD_RESET_SUCCESS: (state) => {
+      state.resettingPassword = false;
+    },
     ERROR: (state, action) => {
       state.error = action.payload;
       state.authRequest = false;
@@ -54,6 +67,9 @@ export const {
   AUTH_REQUEST,
   AUTH_SUCCESS,
   SET_USER,
+  PASSWORD_REQUEST,
+  PASSWORD_REQUEST_SUCCESS,
+  PASSWORD_RESET_SUCCESS,
   ERROR,
 } = userSlice.actions;
 
