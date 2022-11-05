@@ -24,7 +24,7 @@ function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login(form));
+    dispatch(login(form)).then(() => navigate(fromPage));
   };
 
   if (user) {

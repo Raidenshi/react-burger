@@ -35,8 +35,6 @@ function App() {
 
   function closeModal() {
     navigate(-1);
-    dispatch(CLEAR_ORDER());
-    dispatch(CLEAR_CURRENT_INGREDIENT());
   }
 
   function openModalOrder() {
@@ -85,7 +83,14 @@ function App() {
             }
           />
           <Route path="ingredient/:id" element={<IngredientPage />} />
-          <Route path="order" element={<OrderDetails />} />
+          <Route
+            path="order"
+            element={
+              <ProtectedRoute>
+                <OrderDetails />
+              </ProtectedRoute>
+            }
+          />
           <Route path="*" element={<Page404 />} />
         </Route>
       </Routes>
@@ -106,9 +111,11 @@ function App() {
           <Route
             path="/order"
             element={
-              <Modal closeModal={closeModal}>
-                <OrderDetails />
-              </Modal>
+              <ProtectedRoute>
+                <Modal closeModal={closeModal}>
+                  <OrderDetails />
+                </Modal>
+              </ProtectedRoute>
             }
           />
         </Routes>
