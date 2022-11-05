@@ -19,7 +19,6 @@ function AppHeaderButton({ children, text, to }) {
 }
 
 AppHeaderButton.propTypes = {
-  isActive: PropTypes.bool,
   text: PropTypes.string,
   to: PropTypes.string,
 };

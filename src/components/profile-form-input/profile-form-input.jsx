@@ -1,4 +1,5 @@
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 function ProfileFormInput({
@@ -46,3 +47,12 @@ function ProfileFormInput({
 }
 
 export default ProfileFormInput;
+
+ProfileFormInput.propTypes = {
+  placeholder: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  form: PropTypes.object.isRequired,
+  setForm: PropTypes.func.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+};

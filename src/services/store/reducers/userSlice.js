@@ -29,6 +29,9 @@ const userSlice = createSlice({
     SET_USER: (state, action) => {
       state.user = action.payload.user;
     },
+    LOGOUT: (state) => {
+      state.user = null;
+    },
     REGISTER_REQUEST: (state) => {
       state.registerRequest = true;
     },
@@ -67,6 +70,7 @@ export const {
   AUTH_REQUEST,
   AUTH_SUCCESS,
   SET_USER,
+  LOGOUT,
   PASSWORD_REQUEST,
   PASSWORD_REQUEST_SUCCESS,
   PASSWORD_RESET_SUCCESS,

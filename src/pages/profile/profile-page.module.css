@@ -24,6 +24,8 @@
   border: none;
   color: #8585ad;
   text-decoration: none;
+
+  cursor: pointer;
 }
 
 .text {

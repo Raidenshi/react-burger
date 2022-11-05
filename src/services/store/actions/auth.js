@@ -126,7 +126,7 @@ export const updateUser = (form) => async (dispatch) => {
 export const passwordForgotRequest = (form) => async (dispatch) => {
   try {
     dispatch(PASSWORD_REQUEST());
-    const response = await request(`${baseURL}/password-reset`, {
+    await request(`${baseURL}/password-reset`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -141,7 +141,7 @@ export const passwordForgotRequest = (form) => async (dispatch) => {
 
 export const passwordResetRequest = (form) => async (dispatch) => {
   try {
-    const response = await request(`${baseURL}/password-reset/reset`, {
+    await request(`${baseURL}/password-reset/reset`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -149,6 +149,24 @@ export const passwordResetRequest = (form) => async (dispatch) => {
       body: JSON.stringify(form),
     });
     dispatch(PASSWORD_RESET_SUCCESS());
+  } catch (e) {
+    dispatch(ERROR(e.message));
+  }
+};
+
+export const logOut = () => async (dispatch) => {
+  try {
+    await request(`${baseURL}/auth/logout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({ token: sessionStorage.getItem('token') }),
+    });
+    sessionStorage.removeItem('token');
+    setCookie('token', '', {
+      'max-age': -1,
+    });
   } catch (e) {
     dispatch(ERROR(e.message));
   }
