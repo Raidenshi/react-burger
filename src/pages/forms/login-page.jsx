@@ -20,15 +20,14 @@ function LoginPage() {
     password: '',
   });
 
-  const fromPage = location.state?.from?.pathname || '/';
-
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login(form)).then(() => navigate(fromPage));
   };
 
+  const fromPage = location.state?.from?.pathname || '/';
   if (user) {
-    return <Navigate to="/" />;
+    return <Navigate to={fromPage} />;
   }
 
   return (
