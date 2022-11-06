@@ -20,7 +20,6 @@ import {
 } from '../../services/store/reducers/IngredientsSlice';
 import { postOrder } from '../../services/store/actions/postOrder';
 import Modal from '../modal/modal';
-import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 
 function App() {
@@ -100,7 +99,7 @@ function App() {
             path="/ingredient/:id"
             element={
               <Modal closeModal={closeModal}>
-                <IngredientDetails />
+                <IngredientPage />
               </Modal>
             }
           />

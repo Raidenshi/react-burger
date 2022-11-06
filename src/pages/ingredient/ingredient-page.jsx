@@ -6,9 +6,14 @@ import ingredientStyles from './ingredient-page.module.css';
 
 function IngredientPage() {
   const { id } = useParams();
-
   const data = useSelector((store) => store.ingredientsReducer.data);
-  const ingredient = data.find((el) => el._id === id);
+  let ingredient = useSelector(
+    (store) => store.ingredientsReducer.currentIngredient
+  );
+  if (JSON.stringify(ingredient === '{}')) {
+    ingredient = data.find((el) => el._id === id);
+  }
+
   return (
     <div className={ingredientStyles.container}>
       {data.length && (
