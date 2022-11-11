@@ -10,7 +10,7 @@ function IngredientPage() {
   let ingredient = useSelector(
     (store) => store.ingredientsReducer.currentIngredient
   );
-  if (JSON.stringify(ingredient === '{}')) {
+  if (JSON.stringify(ingredient) === '{}') {
     ingredient = data.find((el) => el._id === id);
   }
 

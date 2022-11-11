@@ -6,9 +6,12 @@ import orderStyles from './order-details.module.css';
 
 function OrderDetails() {
   const orderData = useSelector((store) => store.orderReducer.order);
+  const request = useSelector((store) => store.orderReducer.orderRequest);
   return (
     <div className={`mt-30 mb-30 ${orderStyles.container}`}>
-      {orderData.success && (
+      {request ? (
+        <p className="text text_type_main-large">Загрузка...</p>
+      ) : (
         <>
           <p className="text text_type_digits-large">
             {orderData.order.number}

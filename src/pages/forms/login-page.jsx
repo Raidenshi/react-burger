@@ -5,28 +5,27 @@ import {
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useForm } from '../../hooks/useForm';
 import { login } from '../../services/store/actions/auth';
-import { handleInputChange } from '../../utils/handleInputChange';
 
 import styles from './forms.module.css';
 
 function LoginPage() {
   const user = useSelector((store) => store.userReducer.user);
   const location = useLocation();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [form, setForm] = useState({
-    email: '',
-    password: '',
-  });
+  const { form, handleChange } = useForm({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login(form)).then(() => navigate(fromPage));
+    dispatch(login(form));
   };
 
   const fromPage = location.state?.from?.pathname || '/';
   if (user) {
+    if (fromPage === '/order') {
+      return <Navigate to={'/'} />;
+    }
     return <Navigate to={fromPage} />;
   }
 
@@ -40,7 +39,7 @@ function LoginPage() {
           extraClass="mb-6"
           value={form.email}
           name={'email'}
-          onChange={(e) => handleInputChange(e, form, setForm)}
+          onChange={handleChange}
         />
         <Input
           type={'password'}
@@ -49,7 +48,7 @@ function LoginPage() {
           extraClass="mb-6"
           value={form.password}
           name={'password'}
-          onChange={(e) => handleInputChange(e, form, setForm)}
+          onChange={handleChange}
         />
         <Button
           type="primary"

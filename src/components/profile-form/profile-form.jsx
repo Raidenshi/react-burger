@@ -1,8 +1,8 @@
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from '../../hooks/useForm';
 import { updateUser } from '../../services/store/actions/auth';
-import { handleInputChange } from '../../utils/handleInputChange';
 import ProfileFormInput from '../profile-form-input/profile-form-input';
 
 function ProfileForm() {
@@ -13,7 +13,7 @@ function ProfileForm() {
   const initEmail = user.email;
   const initPass = '********';
 
-  const [form, setForm] = useState({
+  const { form, handleChange, setForm } = useForm({
     name: user.name,
     email: user.email,
     password: initPass,
@@ -51,7 +51,7 @@ function ProfileForm() {
         placeholder={'Имя'}
         type={'text'}
         name={'name'}
-        handleInputChange={handleInputChange}
+        handleInputChange={handleChange}
         form={form}
         setForm={setForm}
         value={form.name}
@@ -60,7 +60,7 @@ function ProfileForm() {
         placeholder={'E-mail'}
         type={'email'}
         name={'email'}
-        handleInputChange={handleInputChange}
+        handleInputChange={handleChange}
         form={form}
         setForm={setForm}
         value={form.email}
@@ -69,7 +69,7 @@ function ProfileForm() {
         placeholder={'Пароль'}
         type={'password'}
         name={'password'}
-        handleInputChange={handleInputChange}
+        handleInputChange={handleChange}
         form={form}
         setForm={setForm}
         value={form.password}

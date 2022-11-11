@@ -4,21 +4,16 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { useForm } from '../../hooks/useForm';
 import { register } from '../../services/store/actions/auth';
-import { handleInputChange } from '../../utils/handleInputChange';
 
 import styles from './forms.module.css';
 
 function RegisterPage() {
   const user = useSelector((store) => store.userReducer.user);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [form, setForm] = useState({
-    email: '',
-    password: '',
-    name: '',
-  });
+  const { form, handleChange } = useForm({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,7 +34,7 @@ function RegisterPage() {
           value={form.name}
           extraClass="mb-6"
           name={'name'}
-          onChange={(e) => handleInputChange(e, form, setForm)}
+          onChange={handleChange}
         />
         <Input
           type={'email'}
@@ -47,7 +42,7 @@ function RegisterPage() {
           value={form.email}
           extraClass="mb-6"
           name={'email'}
-          onChange={(e) => handleInputChange(e, form, setForm)}
+          onChange={handleChange}
         />
         <Input
           type={'password'}
@@ -56,7 +51,7 @@ function RegisterPage() {
           icon={'ShowIcon'}
           extraClass="mb-6"
           name={'password'}
-          onChange={(e) => handleInputChange(e, form, setForm)}
+          onChange={handleChange}
         />
         <Button
           type="primary"

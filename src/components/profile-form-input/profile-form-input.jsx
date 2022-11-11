@@ -41,7 +41,7 @@ function ProfileFormInput({
       value={value}
       onIconClick={onIconClick}
       onBlur={onBlur}
-      onChange={(e) => handleInputChange(e, form, setForm)}
+      onChange={handleInputChange}
     />
   );
 }

@@ -13,10 +13,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authUser } from '../../services/store/actions/auth';
 import IngredientPage from '../../pages/ingredient/ingredient-page';
 import { getData } from '../../services/store/actions/getData';
-import { CLEAR_ORDER } from '../../services/store/reducers/orderSlice';
 import {
-  CLEAR_CURRENT_INGREDIENT,
   SET_CURRENT_INGREDIENT,
+  UPDATE_CONSTRUCTOR_LIST,
 } from '../../services/store/reducers/IngredientsSlice';
 import { postOrder } from '../../services/store/actions/postOrder';
 import Modal from '../modal/modal';
@@ -41,7 +40,9 @@ function App() {
       ingredients: addedIngredients.map((el) => el._id),
     };
     if (user) {
-      dispatch(postOrder(addedIngredientsID));
+      dispatch(postOrder(addedIngredientsID)).then(() => {
+        dispatch(UPDATE_CONSTRUCTOR_LIST([]));
+      });
     } else {
       navigate('/login');
     }

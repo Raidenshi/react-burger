@@ -5,8 +5,8 @@ import {
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useForm } from '../../hooks/useForm';
 import { passwordForgotRequest } from '../../services/store/actions/auth';
-import { handleInputChange } from '../../utils/handleInputChange';
 
 import styles from './forms.module.css';
 
@@ -14,9 +14,7 @@ function ForgotPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.userReducer.user);
-  const [form, setForm] = useState({
-    email: '',
-  });
+  const { form, handleChange } = useForm({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,7 +39,7 @@ function ForgotPage() {
           extraClass="mb-6"
           name={'email'}
           value={form.email}
-          onChange={(e) => handleInputChange(e, form, setForm)}
+          onChange={handleChange}
         />
         <Button
           type="primary"

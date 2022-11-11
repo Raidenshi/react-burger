@@ -5,8 +5,8 @@ import {
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
+import { useForm } from '../../hooks/useForm';
 import { passwordResetRequest } from '../../services/store/actions/auth';
-import { handleInputChange } from '../../utils/handleInputChange';
 
 import styles from './forms.module.css';
 
@@ -16,18 +16,15 @@ function ResetPage() {
   const resettingPassword = useSelector(
     (store) => store.userReducer.resettingPassword
   );
-  const [form, setForm] = useState({
-    password: '',
-    token: '',
-  });
+  const { form, handleChange } = useForm({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(passwordResetRequest(form));
   };
 
-  if (!resettingPassword && user) {
-    return <Navigate to="/" />;
+  if (user || !resettingPassword) {
+    return <Navigate to="/forgot-password" />;
   }
 
   return (
@@ -43,7 +40,7 @@ function ResetPage() {
           extraClass="mb-6"
           value={form.password}
           name={'password'}
-          onChange={(e) => handleInputChange(e, form, setForm)}
+          onChange={handleChange}
         />
         <Input
           type={'text'}
@@ -51,7 +48,7 @@ function ResetPage() {
           extraClass="mb-6"
           value={form.token}
           name={'token'}
-          onChange={(e) => handleInputChange(e, form, setForm)}
+          onChange={handleChange}
         />
         <Button
           type="primary"
