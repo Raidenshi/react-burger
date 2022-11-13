@@ -8,7 +8,29 @@
   height: 620px;
   padding: 0;
   margin: 0;
-  border-radius: 10%;
+  border-radius: 10% 10% 0 0;
 
   list-style: none;
+}
+
+.overflow {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.overflow::-webkit-scrollbar {
+  width: 8px;
+}
+
+.overflow::-webkit-scrollbar-track {
+  background: #2f2f37;
+  border-radius: 20px;
+  height: 200px;
+  margin-bottom: 52px;
+}
+
+.overflow::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+  border-radius: 20px;
+  border: 1px solid #2f2f37;
 }

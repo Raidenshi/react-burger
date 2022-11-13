@@ -8,15 +8,16 @@ import { useDrop } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_INGREDIENT } from '../../services/store/reducers/IngredientsSlice';
 import ConstructorList from '../constructor-list/constructor-list';
-import { v4 as uuidv4 } from 'uuid';
 import constructorStyles from './burger-constructor.module.css';
+import { Link, useLocation } from 'react-router-dom';
 
 function BurgerConstructor({ openModal }) {
+  const location = useLocation();
   const dispatch = useDispatch();
   const [{ border }, drop] = useDrop(() => ({
     accept: 'ingredient',
     drop(item) {
-      dispatch(ADD_INGREDIENT({ ...item.element, uniqueID: uuidv4() }));
+      dispatch(ADD_INGREDIENT(item.element));
     },
     collect: (monitor) => ({
       border: monitor.canDrop() ? '2px solid #4c4cff' : '2px solid transparent',
@@ -42,14 +43,17 @@ function BurgerConstructor({ openModal }) {
           </span>
           <CurrencyIcon type="primary" />
         </div>
-        <Button
-          type="primary"
-          size="medium"
-          htmlType="button"
-          onClick={openModal}
-        >
-          Оформить заказ
-        </Button>
+        <Link to="/order" state={{ background: location }}>
+          <Button
+            type="primary"
+            size="medium"
+            htmlType="button"
+            onClick={openModal}
+            disabled={addedIngredients.length < 1}
+          >
+            Оформить заказ
+          </Button>
+        </Link>
       </div>
     </div>
   );

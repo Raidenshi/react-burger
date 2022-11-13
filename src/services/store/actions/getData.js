@@ -12,6 +12,6 @@ export const getData = () => async (dispatch) => {
     const response = await request(`${baseURL}/ingredients`);
     dispatch(REQUEST_DATA_SUCCESS(response.data));
   } catch (e) {
-    dispatch(REQUEST_DATA_FAILED(e));
+    dispatch(REQUEST_DATA_FAILED(e.message));
   }
 };
