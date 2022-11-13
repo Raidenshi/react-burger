@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { isType } from '../../../utils/isType';
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
   dataRequest: false,
@@ -38,39 +39,43 @@ export const ingredientsSlice = createSlice({
         state.addedIngredients.length === 0 &&
         isType('bun', action.payload)
       ) {
-        state.addedIngredients = [action.payload, action.payload];
+        const bun1 = { ...action.payload, uniqueID: uuidv4() };
+        const bun2 = { ...action.payload, uniqueID: uuidv4() };
+        state.addedIngredients = [bun1, bun2];
       } else if (
         state.addedIngredients.length > 0 &&
         isType('bun', state.addedIngredients[0]) &&
         isType('bun', action.payload)
       ) {
+        const bun1 = { ...action.payload, uniqueID: uuidv4() };
+        const bun2 = { ...action.payload, uniqueID: uuidv4() };
         state.addedIngredients = [
-          action.payload,
+          bun1,
           ...state.addedIngredients.slice(1, -1),
-          action.payload,
+          bun2,
         ];
       } else if (
         state.addedIngredients.length > 0 &&
         isType('bun', state.addedIngredients[0]) &&
         !isType('bun', action.payload)
       ) {
+        const ingredient = { ...action.payload, uniqueID: uuidv4() };
         state.addedIngredients = [
           state.addedIngredients[0],
           ...state.addedIngredients.slice(1, -1),
-          action.payload,
+          ingredient,
           state.addedIngredients.at(-1),
         ];
       } else if (
         state.addedIngredients.length > 0 &&
         isType('bun', action.payload)
       ) {
-        state.addedIngredients = [
-          action.payload,
-          ...state.addedIngredients,
-          action.payload,
-        ];
+        const bun1 = { ...action.payload, uniqueID: uuidv4() };
+        const bun2 = { ...action.payload, uniqueID: uuidv4() };
+        state.addedIngredients = [bun1, ...state.addedIngredients, bun2];
       } else if (!isType('bun', action.payload)) {
-        state.addedIngredients.push(action.payload);
+        const ingredient = { ...action.payload, uniqueID: uuidv4() };
+        state.addedIngredients.push(ingredient);
       }
     },
     UPDATE_CONSTRUCTOR_LIST: (state, action) => {

@@ -35,7 +35,7 @@ function ConstructorList({ border }) {
     <ul className={`${styles.list} ${overflow}`} style={{ border: border }}>
       {addedIngredients.map((item, index) => (
         <ConstrctorListCard
-          key={uuidv4()}
+          key={item.uniqueID}
           index={index}
           item={item}
           moveCard={moveCard}

@@ -37,7 +37,7 @@ function LoginPage() {
           type={'email'}
           placeholder={'E-mail'}
           extraClass="mb-6"
-          value={form.email}
+          value={form.email || ''}
           name={'email'}
           onChange={handleChange}
         />
@@ -46,7 +46,7 @@ function LoginPage() {
           placeholder={'Password'}
           icon={'ShowIcon'}
           extraClass="mb-6"
-          value={form.password}
+          value={form.password || ''}
           name={'password'}
           onChange={handleChange}
         />

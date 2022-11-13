@@ -38,7 +38,7 @@ function ForgotPage() {
           placeholder={'Укажите e-mail'}
           extraClass="mb-6"
           name={'email'}
-          value={form.email}
+          value={form.email || ''}
           onChange={handleChange}
         />
         <Button

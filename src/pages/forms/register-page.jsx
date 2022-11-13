@@ -31,7 +31,7 @@ function RegisterPage() {
         <Input
           type={'text'}
           placeholder={'Имя'}
-          value={form.name}
+          value={form.name || ''}
           extraClass="mb-6"
           name={'name'}
           onChange={handleChange}
@@ -39,7 +39,7 @@ function RegisterPage() {
         <Input
           type={'email'}
           placeholder={'E-mail'}
-          value={form.email}
+          value={form.email || ''}
           extraClass="mb-6"
           name={'email'}
           onChange={handleChange}
@@ -47,7 +47,7 @@ function RegisterPage() {
         <Input
           type={'password'}
           placeholder={'Password'}
-          value={form.password}
+          value={form.password || ''}
           icon={'ShowIcon'}
           extraClass="mb-6"
           name={'password'}

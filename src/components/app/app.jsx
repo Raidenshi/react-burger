@@ -56,7 +56,6 @@ function App() {
     dispatch(getData());
     dispatch(authUser());
   }, []);
-
   return (
     <>
       <Routes location={background || location}>

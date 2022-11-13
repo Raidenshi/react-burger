@@ -16,7 +16,6 @@ function IngredientsCard({ element, openModal }) {
   const addedIngredients = useSelector(
     (store) => store.ingredientsReducer.addedIngredients
   );
-
   const count = React.useMemo(
     () => addedIngredients.filter((el) => element._id === el._id).length
   );
@@ -31,7 +30,7 @@ function IngredientsCard({ element, openModal }) {
 
   return (
     <li className={`mt-6 mb-8 ml-4 mr-4 ${cardStyles.card}`}>
-      <Link to={`ingredient/${element._id}`} state={{ background: location }}>
+      <Link to={`/ingredient/${element._id}`} state={{ background: location }}>
         <img
           src={element.image}
           alt={element.name}
