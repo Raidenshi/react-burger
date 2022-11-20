@@ -103,10 +103,6 @@ function App() {
               </Modal>
             }
           />
-        </Routes>
-      )}
-      {background && (
-        <Routes>
           <Route
             path="/order"
             element={
