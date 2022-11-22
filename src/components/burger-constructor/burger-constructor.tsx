@@ -5,18 +5,19 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop } from 'react-dnd';
-import { useDispatch, useSelector } from 'react-redux';
 import { ADD_INGREDIENT } from '../../services/store/reducers/IngredientsSlice';
 import ConstructorList from '../constructor-list/constructor-list';
 import constructorStyles from './burger-constructor.module.css';
 import { Link, useLocation } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/useApp';
+import { IIngredient } from '../../types/ingredientsTypes';
 
-function BurgerConstructor({ openModal }) {
+function BurgerConstructor({ openModal }: { openModal: () => void }) {
   const location = useLocation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [{ border }, drop] = useDrop(() => ({
     accept: 'ingredient',
-    drop(item) {
+    drop(item: { element: IIngredient }) {
       dispatch(ADD_INGREDIENT(item.element));
     },
     collect: (monitor) => ({
@@ -24,12 +25,12 @@ function BurgerConstructor({ openModal }) {
     }),
   }));
 
-  const addedIngredients = useSelector(
+  const addedIngredients = useAppSelector(
     (store) => store.ingredientsReducer.addedIngredients
   );
 
   const calculatedPrice = useMemo(
-    () => addedIngredients.reduce((a, b) => a + b.price, 0),
+    () => addedIngredients.reduce((a: number, b: any) => a + b.price, 0),
     [addedIngredients]
   );
 

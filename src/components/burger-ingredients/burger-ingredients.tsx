@@ -1,16 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import IngredientTabs from '../ingredient-tabs/ingredient-tabs';
 import IngredientsCard from '../ingredients-card/ingredients-card';
-import { useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { filterByType } from '../../utils/filterByType';
+import { IIngredient } from '../../types/ingredientsTypes';
+import { useAppSelector } from '../../hooks/useApp';
 
 import ingredientsStyles from './burger-ingredients.module.css';
 
-function BurgerIngredients({ openModal }) {
-  const data = useSelector((store) => store.ingredientsReducer.data);
-  const [current, setCurrent] = React.useState('Булки');
+function BurgerIngredients({
+  openModal,
+}: {
+  openModal: (element: IIngredient) => void;
+}) {
+  const data = useAppSelector((store) => store.ingredientsReducer.data);
+  const [current, setCurrent] = React.useState<string>('Булки');
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'ingredient',
@@ -19,10 +23,10 @@ function BurgerIngredients({ openModal }) {
     }),
   }));
 
-  const refBun = React.useRef();
-  const refSauce = React.useRef();
-  const refMain = React.useRef();
-  const refCont = React.useRef();
+  const refBun = React.useRef<HTMLInputElement>(null!);
+  const refSauce = React.useRef<HTMLInputElement>(null!);
+  const refMain = React.useRef<HTMLInputElement>(null!);
+  const refCont = React.useRef<HTMLInputElement>(null!);
 
   const onScroll = () => {
     const offset = refCont.current.offsetTop;
@@ -34,7 +38,7 @@ function BurgerIngredients({ openModal }) {
     if (scroll > (toMain + toSauce) / 2 + 30) setCurrent('Начинки');
   };
 
-  const onClick = (value) => {
+  const onClick = (value: string): void => {
     setCurrent(value);
     if (value === 'Булки')
       refBun.current.scrollIntoView({ behavior: 'smooth' });
@@ -85,9 +89,5 @@ function BurgerIngredients({ openModal }) {
     </div>
   );
 }
-
-BurgerIngredients.propTypes = {
-  openModal: PropTypes.func.isRequired,
-};
 
 export default BurgerIngredients;

@@ -8,7 +8,8 @@ import {
 import { AppDispatch } from '../store';
 
 export const postOrder =
-  (addedIngredientsID: number[]) => async (dispatch: AppDispatch) => {
+  (addedIngredientsID: { ingredients: string[] }) =>
+  async (dispatch: AppDispatch) => {
     try {
       dispatch(POST_ORDER());
       const response = await request(`${baseURL}/orders`, {

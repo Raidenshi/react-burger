@@ -3,7 +3,12 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import tabStyles from './ingredient-tabs.module.css';
 
-function IngredientTabs({ current, onClick }) {
+interface IIngredientTabs {
+  current: string;
+  onClick: (value: string) => void;
+}
+
+function IngredientTabs({ current, onClick }: IIngredientTabs) {
   return (
     <div className={tabStyles.tab}>
       <Tab value="Булки" active={current === 'Булки'} onClick={onClick}>

@@ -1,6 +1,16 @@
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import React from 'react';
+import { IForm } from '../../types/formTypes';
+
+interface IProfileFormInput {
+  placeholder: string;
+  type: 'password' | 'text' | 'email' | undefined;
+  name: string;
+  form: IForm;
+  setForm: React.Dispatch<React.SetStateAction<IForm>>;
+  handleInputChange: any;
+  value: string;
+}
 
 function ProfileFormInput({
   placeholder,
@@ -10,9 +20,9 @@ function ProfileFormInput({
   setForm,
   handleInputChange,
   value,
-}) {
-  const ref = React.useRef();
-  const [disabled, setDisabled] = React.useState(true);
+}: IProfileFormInput) {
+  const ref = React.useRef<HTMLInputElement>(null!);
+  const [disabled, setDisabled] = React.useState<boolean>(true);
 
   const onIconClick = () => {
     setTimeout(() => ref.current.focus(), 0);
@@ -47,12 +57,3 @@ function ProfileFormInput({
 }
 
 export default ProfileFormInput;
-
-ProfileFormInput.propTypes = {
-  placeholder: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  form: PropTypes.object.isRequired,
-  setForm: PropTypes.func.isRequired,
-  handleInputChange: PropTypes.func.isRequired,
-};

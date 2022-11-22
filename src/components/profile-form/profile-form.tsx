@@ -1,25 +1,25 @@
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useAppSelector, useAppDispatch } from '../../hooks/useApp';
 import { useForm } from '../../hooks/useForm';
 import { updateUser } from '../../services/store/actions/auth';
 import ProfileFormInput from '../profile-form-input/profile-form-input';
 
 function ProfileForm() {
-  const user = useSelector((store) => store.userReducer.user);
-  const dispatch = useDispatch();
+  const user = useAppSelector((store) => store.userReducer.user);
+  const dispatch = useAppDispatch();
 
-  const initName = user.name;
-  const initEmail = user.email;
+  const initName = user?.name;
+  const initEmail = user?.email;
   const initPass = '********';
 
   const { form, handleChange, setForm } = useForm({
-    name: user.name,
-    email: user.email,
+    name: user?.name,
+    email: user?.email,
     password: initPass,
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     let changedFields = {};
 
@@ -39,8 +39,8 @@ function ProfileForm() {
 
   const handleCancel = () => {
     setForm({
-      name: user.name,
-      email: user.email,
+      name: user?.name,
+      email: user?.email,
       password: initPass,
     });
   };
@@ -54,7 +54,7 @@ function ProfileForm() {
         handleInputChange={handleChange}
         form={form}
         setForm={setForm}
-        value={form.name}
+        value={form.name || ''}
       />
       <ProfileFormInput
         placeholder={'E-mail'}
@@ -63,7 +63,7 @@ function ProfileForm() {
         handleInputChange={handleChange}
         form={form}
         setForm={setForm}
-        value={form.email}
+        value={form.email || ''}
       />
       <ProfileFormInput
         placeholder={'Пароль'}
@@ -72,7 +72,7 @@ function ProfileForm() {
         handleInputChange={handleChange}
         form={form}
         setForm={setForm}
-        value={form.password}
+        value={form.password || ''}
       />
       <div>
         <Button htmlType="submit">Сохранить</Button>

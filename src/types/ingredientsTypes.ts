@@ -1,8 +1,9 @@
 export interface IIngredient {
   _id: string;
+  uniqueID?: string;
   name: string;
   type: string;
-  protein: number;
+  proteins: number;
   fat: number;
   carbohydrates: number;
   calories: number;
@@ -19,5 +20,5 @@ export interface IIngredientsState {
   dataError: string;
   data: IIngredient[];
   addedIngredients: IIngredient[];
-  currentIngredient: IIngredient | {};
+  currentIngredient: IIngredient | null;
 }

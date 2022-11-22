@@ -2,8 +2,8 @@ import {
   Button,
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/useApp';
 import { Link, Navigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { register } from '../../services/store/actions/auth';
@@ -11,11 +11,11 @@ import { register } from '../../services/store/actions/auth';
 import styles from './forms.module.css';
 
 function RegisterPage() {
-  const user = useSelector((store) => store.userReducer.user);
-  const dispatch = useDispatch();
+  const user = useAppSelector((store) => store.userReducer.user);
+  const dispatch = useAppDispatch();
   const { form, handleChange } = useForm({});
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     dispatch(register(form));
   };

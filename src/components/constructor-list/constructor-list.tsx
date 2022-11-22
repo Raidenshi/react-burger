@@ -1,20 +1,19 @@
 import React, { useCallback, useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/useApp';
 import PropTypes from 'prop-types';
-import { v4 as uuidv4 } from 'uuid';
 import { UPDATE_CONSTRUCTOR_LIST } from '../../services/store/reducers/IngredientsSlice';
 
 import styles from './constructor-list.module.css';
 import ConstrctorListCard from '../constructor-list-card/constructor-list-card';
 
-function ConstructorList({ border }) {
-  const dispatch = useDispatch();
-  const addedIngredients = useSelector(
+function ConstructorList({ border }: { border: string }) {
+  const dispatch = useAppDispatch();
+  const addedIngredients = useAppSelector(
     (store) => store.ingredientsReducer.addedIngredients
   );
 
   const moveCard = useCallback(
-    (dragIndex, hoverIndex) => {
+    (dragIndex: number, hoverIndex: number) => {
       const dragCard = addedIngredients[dragIndex];
       const newCards = [...addedIngredients];
       newCards.splice(dragIndex, 1);

@@ -1,12 +1,12 @@
 import React from 'react';
 import done from '../../images/done.png';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../hooks/useApp';
 
 import orderStyles from './order-details.module.css';
 
 function OrderDetails() {
-  const orderData = useSelector((store) => store.orderReducer.order);
-  const request = useSelector((store) => store.orderReducer.orderRequest);
+  const orderData = useAppSelector((store) => store.orderReducer.order);
+  const request = useAppSelector((store) => store.orderReducer.orderRequest);
   return (
     <div className={`mt-30 mb-30 ${orderStyles.container}`}>
       {request ? (
@@ -14,7 +14,7 @@ function OrderDetails() {
       ) : (
         <>
           <p className="text text_type_digits-large">
-            {orderData.order.number}
+            {orderData?.order.number}
           </p>
           <p className="text text_type_main-medium mt-8">
             Идентификатор заказа

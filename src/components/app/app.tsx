@@ -9,7 +9,7 @@ import ResetPage from '../../pages/forms/reset-page';
 import Layout from '../layout/layout';
 import ProfilePage from '../../pages/profile/profile-page';
 import ProtectedRoute from '../protected-route/protected-route';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/useApp';
 import { authUser } from '../../services/store/actions/auth';
 import IngredientPage from '../../pages/ingredient/ingredient-page';
 import { getData } from '../../services/store/actions/getData';
@@ -20,14 +20,15 @@ import {
 import { postOrder } from '../../services/store/actions/postOrder';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
+import { IIngredient } from '../../types/ingredientsTypes';
 
 function App() {
   const location = useLocation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
-  const user = useSelector((store) => store.userReducer.user);
-  const addedIngredients = useSelector(
+  const user = useAppSelector((store) => store.userReducer.user);
+  const addedIngredients = useAppSelector(
     (store) => store.ingredientsReducer.addedIngredients
   );
 
@@ -48,7 +49,7 @@ function App() {
     }
   }
 
-  function openModalIngredient(ingredient) {
+  function openModalIngredient(ingredient: IIngredient) {
     dispatch(SET_CURRENT_INGREDIENT(ingredient));
   }
 

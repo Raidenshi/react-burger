@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import ModalOverlay from '../modal-overlay/modal-overlay';
@@ -7,14 +7,19 @@ import modalStyles from './modal.module.css';
 
 const modalRoot = document.getElementById('react-modals');
 
-function Modal({ closeModal, children }) {
-  const ref = React.useRef(null);
+interface IModal {
+  closeModal: () => void;
+  children: React.ReactNode;
+}
 
-  React.useEffect(() => {
+function Modal({ closeModal, children }: IModal) {
+  const ref = useRef<HTMLInputElement>(null!);
+
+  useEffect(() => {
     ref.current.focus();
   }, []);
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.code === 'Escape') {
       closeModal();
     }
@@ -29,14 +34,14 @@ function Modal({ closeModal, children }) {
         ref={ref}
       >
         <button className={modalStyles.button} onClick={closeModal}>
-          <CloseIcon />
+          <CloseIcon type="primary" />
         </button>
         {children}
       </div>
       <ModalOverlay closeModal={closeModal} />
     </>,
 
-    modalRoot
+    modalRoot as Element
   );
 }
 

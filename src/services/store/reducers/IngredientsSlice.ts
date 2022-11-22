@@ -13,7 +13,7 @@ const initialState: IIngredientsState = {
   data: [],
 
   addedIngredients: [],
-  currentIngredient: {},
+  currentIngredient: null,
 };
 
 export const ingredientsSlice = createSlice({
@@ -36,7 +36,7 @@ export const ingredientsSlice = createSlice({
       state.currentIngredient = action.payload;
     },
     CLEAR_CURRENT_INGREDIENT: (state) => {
-      state.currentIngredient = {};
+      state.currentIngredient = null;
     },
     ADD_INGREDIENT: (state, action: PayloadAction<IIngredient>) => {
       if (

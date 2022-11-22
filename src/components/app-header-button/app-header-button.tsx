@@ -5,7 +5,13 @@ import buttonStyles from './app-header-button.module.css';
 import { NavLink } from 'react-router-dom';
 import { isActiveLink } from '../../utils/isActiveLink';
 
-function AppHeaderButton({ children, text, to }) {
+interface IAppHEaderButton {
+  children: JSX.Element;
+  text: string;
+  to: string;
+}
+
+function AppHeaderButton({ children, text, to }: IAppHEaderButton) {
   return (
     <NavLink
       className={`${buttonStyles.button} p-4 `}

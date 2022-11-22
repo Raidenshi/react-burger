@@ -6,18 +6,25 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import dataProps from '../../utils/types';
 import { useDrag } from 'react-dnd';
-import { useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
+import { IIngredient } from '../../types/ingredientsTypes';
 
 import cardStyles from './ingredients-card.module.css';
-import { Link, useLocation } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/useApp';
 
-function IngredientsCard({ element, openModal }) {
+interface ICard {
+  element: IIngredient;
+  openModal: (element: IIngredient) => void;
+}
+
+function IngredientsCard({ element, openModal }: ICard) {
   const location = useLocation();
-  const addedIngredients = useSelector(
+  const addedIngredients = useAppSelector(
     (store) => store.ingredientsReducer.addedIngredients
   );
   const count = React.useMemo(
-    () => addedIngredients.filter((el) => element._id === el._id).length
+    () => addedIngredients.filter((el) => element._id === el._id).length,
+    [addedIngredients]
   );
 
   const [{ opacity }, drag] = useDrag(() => ({
@@ -44,7 +51,7 @@ function IngredientsCard({ element, openModal }) {
       <div className="mt-1 mb-1">
         <span className="text text_type_digits-default mr-3">
           {element.price}
-          <CurrencyIcon />
+          <CurrencyIcon type="primary" />
         </span>
       </div>
       <span className={`text text_type_main-small ${cardStyles.name}`}>

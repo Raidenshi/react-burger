@@ -2,21 +2,21 @@ import {
   Button,
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/useApp';
 import { useForm } from '../../hooks/useForm';
 import { passwordForgotRequest } from '../../services/store/actions/auth';
 
 import styles from './forms.module.css';
 
 function ForgotPage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useSelector((store) => store.userReducer.user);
+  const user = useAppSelector((store) => store.userReducer.user);
   const { form, handleChange } = useForm({});
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     dispatch(passwordForgotRequest(form)).then(() => {
       navigate('/reset-password');

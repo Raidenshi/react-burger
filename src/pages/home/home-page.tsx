@@ -5,8 +5,14 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import styles from './home-page.module.css';
+import { IIngredient } from '../../types/ingredientsTypes';
 
-function HomePage({ openModalIngredient, openModalOrder }) {
+interface IHomePage {
+  openModalIngredient: (element: IIngredient) => void;
+  openModalOrder: () => void;
+}
+
+function HomePage({ openModalIngredient, openModalOrder }: IHomePage) {
   return (
     <>
       <main className={styles.main}>

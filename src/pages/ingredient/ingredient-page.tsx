@@ -1,17 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/useApp';
 
 import ingredientStyles from './ingredient-page.module.css';
 
 function IngredientPage() {
   const { id } = useParams();
-  const data = useSelector((store) => store.ingredientsReducer.data);
-  let ingredient = useSelector(
+  const data = useAppSelector((store) => store.ingredientsReducer.data);
+  let ingredient = useAppSelector(
     (store) => store.ingredientsReducer.currentIngredient
   );
-  if (JSON.stringify(ingredient) === '{}') {
-    ingredient = data.find((el) => el._id === id);
+  if (ingredient === null) {
+    ingredient = data.find((el) => el._id === id)!;
   }
 
   return (

@@ -1,17 +1,16 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import ProfileForm from '../../components/profile-form/profile-form';
+import { useAppDispatch } from '../../hooks/useApp';
 import { logOut } from '../../services/store/actions/auth';
 import { LOGOUT } from '../../services/store/reducers/userSlice';
-
 import { isActiveLink } from '../../utils/isActiveLink';
 
 import styles from './profile-page.module.css';
 
 function ProfilePage() {
-  const dispatch = useDispatch();
-  async function handleLogout() {
+  const dispatch = useAppDispatch();
+  async function handleLogout(): Promise<void> {
     dispatch(logOut());
     dispatch(LOGOUT());
   }
