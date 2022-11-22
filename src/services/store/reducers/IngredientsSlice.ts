@@ -1,8 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { isType } from '../../../utils/isType';
 import { v4 as uuidv4 } from 'uuid';
+import {
+  IIngredient,
+  IIngredientsState,
+} from '../../../types/ingredientsTypes';
 
-const initialState = {
+const initialState: IIngredientsState = {
   dataRequest: false,
   dataFailed: false,
   dataError: '',
@@ -19,22 +23,22 @@ export const ingredientsSlice = createSlice({
     REQUEST_DATA: (state) => {
       state.dataRequest = true;
     },
-    REQUEST_DATA_SUCCESS: (state, action) => {
+    REQUEST_DATA_SUCCESS: (state, action: PayloadAction<IIngredient[]>) => {
       state.dataRequest = false;
       state.data = action.payload;
     },
-    REQUEST_DATA_FAILED: (state, action) => {
+    REQUEST_DATA_FAILED: (state, action: PayloadAction<string>) => {
       state.dataRequest = false;
       state.dataFailed = true;
       state.dataError = action.payload;
     },
-    SET_CURRENT_INGREDIENT: (state, action) => {
+    SET_CURRENT_INGREDIENT: (state, action: PayloadAction<IIngredient>) => {
       state.currentIngredient = action.payload;
     },
     CLEAR_CURRENT_INGREDIENT: (state) => {
       state.currentIngredient = {};
     },
-    ADD_INGREDIENT: (state, action) => {
+    ADD_INGREDIENT: (state, action: PayloadAction<IIngredient>) => {
       if (
         state.addedIngredients.length === 0 &&
         isType('bun', action.payload)
@@ -64,7 +68,7 @@ export const ingredientsSlice = createSlice({
           state.addedIngredients[0],
           ...state.addedIngredients.slice(1, -1),
           ingredient,
-          state.addedIngredients.at(-1),
+          state.addedIngredients[state.addedIngredients.length - 1],
         ];
       } else if (
         state.addedIngredients.length > 0 &&
@@ -78,7 +82,7 @@ export const ingredientsSlice = createSlice({
         state.addedIngredients.push(ingredient);
       }
     },
-    UPDATE_CONSTRUCTOR_LIST: (state, action) => {
+    UPDATE_CONSTRUCTOR_LIST: (state, action: PayloadAction<IIngredient[]>) => {
       state.addedIngredients = action.payload;
     },
   },

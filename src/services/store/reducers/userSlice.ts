@@ -1,6 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IUserState, IUser } from '../../../types/userTypes';
 
-const initialState = {
+const initialState: IUserState = {
   user: null,
 
   userAuthorized: false,
@@ -26,8 +27,8 @@ const userSlice = createSlice({
     AUTH_SUCCESS: (state) => {
       state.authRequest = false;
     },
-    SET_USER: (state, action) => {
-      state.user = action.payload.user;
+    SET_USER: (state, action: PayloadAction<IUser>) => {
+      state.user = action.payload;
     },
     LOGOUT: (state) => {
       state.user = null;
@@ -35,13 +36,13 @@ const userSlice = createSlice({
     REGISTER_REQUEST: (state) => {
       state.registerRequest = true;
     },
-    REGISTER_SUCCESS: (state, action) => {
+    REGISTER_SUCCESS: (state) => {
       state.registerRequest = false;
     },
     LOGIN_REQUEST: (state) => {
       state.loginRequest = true;
     },
-    LOGIN_SUCCESS: (state, action) => {
+    LOGIN_SUCCESS: (state) => {
       state.registerRequest = false;
     },
     PASSWORD_REQUEST: (state) => {
@@ -54,7 +55,7 @@ const userSlice = createSlice({
     PASSWORD_RESET_SUCCESS: (state) => {
       state.resettingPassword = false;
     },
-    ERROR: (state, action) => {
+    ERROR: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
       state.authRequest = false;
       state.registerRequest = false;

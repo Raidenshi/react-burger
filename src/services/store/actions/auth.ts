@@ -1,3 +1,4 @@
+import { IForm } from '../../../types/formTypes';
 import { baseURL } from '../../../utils/api';
 import { getCookie, setCookie } from '../../../utils/cookie';
 import { request } from '../../../utils/request';
@@ -13,8 +14,9 @@ import {
   REGISTER_SUCCESS,
   SET_USER,
 } from '../reducers/userSlice';
+import { AppDispatch } from '../store';
 
-export const register = (form) => async (dispatch) => {
+export const register = (form: IForm) => async (dispatch: AppDispatch) => {
   try {
     dispatch(REGISTER_REQUEST());
     const response = await request(`${baseURL}/auth/register`, {
@@ -27,13 +29,13 @@ export const register = (form) => async (dispatch) => {
     setCookie('token', response.accessToken);
     sessionStorage.setItem('token', response.refreshToken);
     dispatch(REGISTER_SUCCESS());
-    dispatch(SET_USER(response));
-  } catch (e) {
+    dispatch(SET_USER(response.user));
+  } catch (e: any) {
     dispatch(ERROR(e.message));
   }
 };
 
-export const login = (form) => async (dispatch) => {
+export const login = (form: IForm) => async (dispatch: AppDispatch) => {
   try {
     dispatch(LOGIN_REQUEST());
     const response = await request(`${baseURL}/auth/login`, {
@@ -46,13 +48,13 @@ export const login = (form) => async (dispatch) => {
     setCookie('token', response.accessToken);
     sessionStorage.setItem('token', response.refreshToken);
     dispatch(LOGIN_SUCCESS());
-    dispatch(SET_USER(response));
-  } catch (e) {
+    dispatch(SET_USER(response.user));
+  } catch (e: any) {
     dispatch(ERROR(e.message));
   }
 };
 
-export const authUser = () => async (dispatch) => {
+export const authUser = () => async (dispatch: AppDispatch) => {
   if (!document.cookie && !sessionStorage.getItem('token')) {
     return;
   }
@@ -71,8 +73,8 @@ export const authUser = () => async (dispatch) => {
     });
 
     dispatch(AUTH_SUCCESS());
-    dispatch(SET_USER(response));
-  } catch (e) {
+    dispatch(SET_USER(response.user));
+  } catch (e: any) {
     if (e.message === 'jwt expired') {
       const refrToken = { token: sessionStorage.getItem('token') };
       const response = await request(`${baseURL}/auth/token`, {
@@ -99,12 +101,12 @@ export const authUser = () => async (dispatch) => {
         referrerPolicy: 'no-referrer',
       });
       dispatch(AUTH_SUCCESS());
-      dispatch(SET_USER(responseAgain));
+      dispatch(SET_USER(responseAgain.user));
     }
   }
 };
 
-export const updateUser = (form) => async (dispatch) => {
+export const updateUser = (form: IForm) => async (dispatch: AppDispatch) => {
   try {
     const response = await request(`${baseURL}/auth/user`, {
       method: 'PATCH',
@@ -117,44 +119,46 @@ export const updateUser = (form) => async (dispatch) => {
       },
       body: JSON.stringify(form),
     });
-    dispatch(SET_USER(response));
-  } catch (e) {
+    dispatch(SET_USER(response.user));
+  } catch (e: any) {
     dispatch(ERROR(e.message));
   }
 };
 
-export const passwordForgotRequest = (form) => async (dispatch) => {
-  try {
-    dispatch(PASSWORD_REQUEST());
-    await request(`${baseURL}/password-reset`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-      body: JSON.stringify(form),
-    });
-    dispatch(PASSWORD_REQUEST_SUCCESS());
-  } catch (e) {
-    dispatch(ERROR(e.message));
-  }
-};
+export const passwordForgotRequest =
+  (form: IForm) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(PASSWORD_REQUEST());
+      await request(`${baseURL}/password-reset`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+        body: JSON.stringify(form),
+      });
+      dispatch(PASSWORD_REQUEST_SUCCESS());
+    } catch (e: any) {
+      dispatch(ERROR(e.message));
+    }
+  };
 
-export const passwordResetRequest = (form) => async (dispatch) => {
-  try {
-    await request(`${baseURL}/password-reset/reset`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-      body: JSON.stringify(form),
-    });
-    dispatch(PASSWORD_RESET_SUCCESS());
-  } catch (e) {
-    dispatch(ERROR(e.message));
-  }
-};
+export const passwordResetRequest =
+  (form: IForm) => async (dispatch: AppDispatch) => {
+    try {
+      await request(`${baseURL}/password-reset/reset`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+        body: JSON.stringify(form),
+      });
+      dispatch(PASSWORD_RESET_SUCCESS());
+    } catch (e: any) {
+      dispatch(ERROR(e.message));
+    }
+  };
 
-export const logOut = () => async (dispatch) => {
+export const logOut = () => async (dispatch: AppDispatch) => {
   try {
     await request(`${baseURL}/auth/logout`, {
       method: 'POST',
@@ -167,7 +171,7 @@ export const logOut = () => async (dispatch) => {
     setCookie('token', '', {
       'max-age': -1,
     });
-  } catch (e) {
+  } catch (e: any) {
     dispatch(ERROR(e.message));
   }
 };

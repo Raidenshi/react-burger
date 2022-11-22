@@ -1,10 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IOrderState, IOrder } from '../../../types/orderTypes';
 
-const initialState = {
+const initialState: IOrderState = {
   orderRequest: false,
   orderFailed: false,
   orderError: '',
-  order: {},
+  order: null,
 };
 
 const orderSlice = createSlice({
@@ -14,17 +15,17 @@ const orderSlice = createSlice({
     POST_ORDER: (state) => {
       state.orderRequest = true;
     },
-    POST_ORDER_SUCCESS: (state, action) => {
+    POST_ORDER_SUCCESS: (state, action: PayloadAction<IOrder>) => {
       state.orderRequest = false;
       state.order = action.payload;
     },
-    POST_ORDER_FAILED: (state, action) => {
+    POST_ORDER_FAILED: (state, action: PayloadAction<string>) => {
       state.orderRequest = false;
       state.orderFailed = true;
       state.orderError = action.payload;
     },
     CLEAR_ORDER: (state) => {
-      state.order = {};
+      state.order = null;
     },
   },
 });
