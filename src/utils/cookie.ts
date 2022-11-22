@@ -1,4 +1,4 @@
-export function getCookie(name) {
+export function getCookie(name: string): string | undefined {
   let matches = document.cookie.match(
     new RegExp(
       '(?:^|; )' +
@@ -9,7 +9,11 @@ export function getCookie(name) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function setCookie(name, value, options = {}) {
+export function setCookie(
+  name: string,
+  value: string,
+  options: any = {}
+): void {
   options = {
     path: '/',
     ...options,

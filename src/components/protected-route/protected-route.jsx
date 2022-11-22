@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { authUser } from '../../services/store/actions/auth';
+import { useAppSelector } from '../../hooks/useApp';
 
 function ProtectedRoute({ children }) {
-  const dispatch = useDispatch();
   const location = useLocation();
-  const user = useSelector((store) => store.userReducer.user);
+  const user = useAppSelector((store) => store.userReducer.user);
 
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} />;
