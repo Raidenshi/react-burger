@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+}
+
+.title {
+  width: 1240px;
+  margin: 40px auto 20px auto;
+}

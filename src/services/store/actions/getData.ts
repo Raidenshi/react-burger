@@ -1,5 +1,5 @@
 import { request } from '../../../utils/request';
-import { baseURL } from '../../../utils/api';
+import { baseURL } from '../../../utils/baseURL';
 import {
   REQUEST_DATA,
   REQUEST_DATA_SUCCESS,

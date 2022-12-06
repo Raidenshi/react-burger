@@ -6,6 +6,7 @@ import LoginPage from '../../pages/forms/login-page';
 import Page404 from '../../pages/page-404/page-404';
 import RegisterPage from '../../pages/forms/register-page';
 import ResetPage from '../../pages/forms/reset-page';
+import FeedPage from '../../pages/feed/feed-page';
 import Layout from '../layout/layout';
 import ProfilePage from '../../pages/profile/profile-page';
 import ProtectedRoute from '../protected-route/protected-route';
@@ -57,6 +58,7 @@ function App() {
     dispatch(getData());
     dispatch(authUser());
   }, []);
+
   return (
     <>
       <Routes location={background || location}>
@@ -91,6 +93,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="feed" element={<FeedPage />} />
           <Route path="*" element={<Page404 />} />
         </Route>
       </Routes>

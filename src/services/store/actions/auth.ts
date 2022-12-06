@@ -1,5 +1,5 @@
 import { IForm } from '../../../types/formTypes';
-import { baseURL } from '../../../utils/api';
+import { baseURL } from '../../../utils/baseURL';
 import { getCookie, setCookie } from '../../../utils/cookie';
 import { request } from '../../../utils/request';
 import {

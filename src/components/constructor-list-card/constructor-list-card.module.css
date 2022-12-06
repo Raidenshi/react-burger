@@ -6,3 +6,11 @@
 .item_bun {
   margin-left: 24px;
 }
+
+.orders {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+  margin-bottom: 60px;
+}

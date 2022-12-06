@@ -18,7 +18,7 @@ function AppHeader() {
           <AppHeaderButton text="Конструктор" to="/">
             <BurgerIcon type="primary" />
           </AppHeaderButton>
-          <AppHeaderButton text="Лента заказов" to="*">
+          <AppHeaderButton text="Лента заказов" to="/feed">
             <ListIcon type="secondary" />
           </AppHeaderButton>
         </nav>
