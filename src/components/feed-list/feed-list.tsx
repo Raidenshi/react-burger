@@ -6,7 +6,9 @@ import styles from './feed-list.module.css';
 
 function FeedList() {
   const data = useAppSelector((store) => store.socketReducer.data);
-  const feedItems = data?.orders.map((order) => <FeedItem order={order} />);
+  const feedItems = data?.orders.map((order) => (
+    <FeedItem order={order} key={order.number} />
+  ));
 
   return <div className={styles.container}>{feedItems}</div>;
 }

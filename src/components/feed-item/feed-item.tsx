@@ -24,11 +24,29 @@ function FeedItem({ order }: { order: SocketOrders }) {
   );
 
   const images = orderIngredients.map((ingredient, i) => {
+    if (i == 8) {
+      return (
+        <div className={styles.last_image}>
+          <img
+            key={i}
+            alt={ingredient?.name}
+            src={ingredient?.image_mobile}
+            className={styles.image}
+          />
+          <div className={`${styles.counter} text text_type_digits-default`}>
+            {`+${orderIngredients.length - i - 1}`}
+          </div>
+        </div>
+      );
+    }
+    if (i > 8) {
+      return;
+    }
     return (
       <img
         key={i}
         alt={ingredient?.name}
-        src={ingredient?.image}
+        src={ingredient?.image_mobile}
         className={styles.image}
       />
     );
