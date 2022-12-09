@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/useApp';
 import { WS_PRIVATE_CONNECTION } from '../../services/store/reducers/socketSlice';
+import LoadingSpinner from '../../ui/loading-spinner/loading-spinner';
 import { getCookie } from '../../utils/cookie';
 import FeedItem from '../feed-item/feed-item';
 
@@ -27,7 +28,11 @@ function FeedListProfile() {
     <FeedItem order={order} key={order.number} profile={true} />
   ));
 
-  return <div className={styles.container}>{feedItems}</div>;
+  return data ? (
+    <div className={styles.container}>{feedItems}</div>
+  ) : (
+    <LoadingSpinner />
+  );
 }
 
 export default FeedListProfile;

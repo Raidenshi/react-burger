@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/useApp';
 import { WS_CONNECTION } from '../../services/store/reducers/socketSlice';
+import LoadingSpinner from '../../ui/loading-spinner/loading-spinner';
 import FeedItem from '../feed-item/feed-item';
 
 import styles from './feed-list.module.css';
@@ -21,7 +21,11 @@ function FeedList() {
     <FeedItem order={order} key={order.number} />
   ));
 
-  return <div className={styles.container}>{feedItems}</div>;
+  return data ? (
+    <div className={styles.container}>{feedItems}</div>
+  ) : (
+    <LoadingSpinner />
+  );
 }
 
 export default FeedList;

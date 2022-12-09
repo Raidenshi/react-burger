@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { useAppSelector } from '../../hooks/useApp';
+import LoadingSpinner from '../../ui/loading-spinner/loading-spinner';
 
 import styles from './feed-table.module.css';
 
@@ -36,7 +37,7 @@ function FeedTable() {
     [data]
   );
 
-  return (
+  return data ? (
     <div className={styles.container}>
       <div className={styles.orders_table}>
         <div className={styles.table}>
@@ -59,6 +60,8 @@ function FeedTable() {
         {data?.totalToday}
       </p>
     </div>
+  ) : (
+    <LoadingSpinner />
   );
 }
 

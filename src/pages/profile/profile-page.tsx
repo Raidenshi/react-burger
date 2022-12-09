@@ -1,9 +1,6 @@
-import React, { useEffect } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import ProfileForm from '../../components/profile-form/profile-form';
 import { useAppDispatch } from '../../hooks/useApp';
 import { logOut } from '../../services/store/actions/auth';
-import { WS_CLOSE_CONNECTION } from '../../services/store/reducers/socketSlice';
 import { LOGOUT } from '../../services/store/reducers/userSlice';
 import { isActiveLink } from '../../utils/isActiveLink';
 

@@ -10,6 +10,7 @@ import {
 import { IIngredient } from '../../types/ingredientsTypes';
 import { Status, StatusColor } from '../../types/statusEnums';
 import IconImage from '../../ui/icon-image/icon-image';
+import LoadingSpinner from '../../ui/loading-spinner/loading-spinner';
 import { getCookie } from '../../utils/cookie';
 
 import styles from './feed-item-modal.module.css';
@@ -109,7 +110,7 @@ function FeedItemModal() {
           </div>
         </>
       ) : (
-        ''
+        <LoadingSpinner />
       )}
     </div>
   );
