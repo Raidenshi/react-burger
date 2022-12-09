@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  padding: 40px;
+}
+
+.number {
+  align-self: center;
+}
+
+.time_price {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.price {
+  display: flex;
+  justify-content: center;
+}
+
+.items_container {
+  height: 328px;
+  padding-right: 24px;
+
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.items_container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.items_container::-webkit-scrollbar-track {
+  background: #2f2f37;
+  border-radius: 20px;
+}
+
+.items_container::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+  border-radius: 20px;
+  border: 1px solid #2f2f37;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+}
+
+.item_price {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+}

@@ -1,85 +1,80 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useMemo } from 'react';
-import { useAppSelector } from '../../hooks/useApp';
+import { Link, useLocation } from 'react-router-dom';
+import { useFeedOrderData } from '../../hooks/useFeedOrderData';
 import { SocketOrders } from '../../types/socketTypes';
+import { Status, StatusColor } from '../../types/statusEnums';
+import IconImage from '../../ui/icon-image/icon-image';
 
 import styles from './feed-item.module.css';
 
-function FeedItem({ order }: { order: SocketOrders }) {
-  const ingredientsData = useAppSelector(
-    (store) => store.ingredientsReducer.data
-  );
+interface IFeedItem {
+  order: SocketOrders;
+  profile?: boolean;
+}
 
-  const orderIngredients = useMemo(
-    () =>
-      order.ingredients.map((el) =>
-        ingredientsData.find((ingredient) => ingredient._id == el)
-      ),
-    [order]
-  );
+function FeedItem({ order, profile }: IFeedItem) {
+  const location = useLocation();
 
-  const calculatedPrice = useMemo(
-    () => orderIngredients.reduce((a: number, b: any) => a + b.price, 0),
-    [orderIngredients]
-  );
+  const { orderIngredients, name, time, calculatedPrice } =
+    useFeedOrderData(order);
 
   const images = orderIngredients.map((ingredient, i) => {
-    if (i == 8) {
+    if (i === 7) {
       return (
-        <div className={styles.last_image}>
-          <img
-            key={i}
-            alt={ingredient?.name}
-            src={ingredient?.image_mobile}
-            className={styles.image}
-          />
-          <div className={`${styles.counter} text text_type_digits-default`}>
-            {`+${orderIngredients.length - i - 1}`}
-          </div>
-        </div>
+        <IconImage
+          ingredient={ingredient!}
+          key={i}
+          counter={true}
+          length={orderIngredients.length - i}
+          extraClass={styles.offset}
+        />
       );
     }
-    if (i > 8) {
+    if (i > 7) {
       return;
     }
     return (
-      <img
-        key={i}
-        alt={ingredient?.name}
-        src={ingredient?.image_mobile}
-        className={styles.image}
-      />
+      <IconImage ingredient={ingredient!} key={i} extraClass={styles.offset} />
     );
   });
 
-  const name = useMemo(
-    () =>
-      order.name.length <= 40 ? order.name : `${order.name.slice(0, 36)}...`,
-    [order]
-  );
+  const to = profile ? `/profile/orders/${order._id}` : `/feed/${order._id}`;
 
   return (
-    <div className={`${styles.card} mb-4`}>
-      <div className={`${styles.number} mb-6`}>
-        <p className="text text_type_digits-default">{`#${order.number}`}</p>
-        <time
-          className="text text_type_digits-default text_color_inactive"
-          dateTime={order.createdAt}
-        >
-          {order.createdAt}
-        </time>
-      </div>
-      <p className="text text_type_main-medium mb-6">{name}</p>
-      <div className={styles.images_price}>
-        <div className={styles.images}>{images}</div>
-        <div className={styles.price}>
-          <span className="mr-2 text text_type_digits-default">
-            {calculatedPrice}
-          </span>
-          <CurrencyIcon type="primary" />
+    <Link to={to} state={{ background: location }} className={styles.link}>
+      <div className={`${styles.card} mb-4`}>
+        <div className={`${styles.number} mb-6`}>
+          <p className="text text_type_digits-default">{`#${order.number}`}</p>
+          <time
+            className="text text_type_digits-default text_color_inactive"
+            dateTime={order.createdAt}
+          >
+            {time}
+          </time>
+        </div>
+        <p className="text text_type_main-medium mb-6">{name}</p>
+        {profile ? (
+          <p
+            className={`text text_type_main-small text_color_${
+              StatusColor[order.status]
+            } mb-6`}
+          >
+            {Status[order.status]}
+          </p>
+        ) : (
+          ''
+        )}
+        <div className={styles.images_price}>
+          <div className={styles.images}>{images}</div>
+          <div className={styles.price}>
+            <span className="mr-2 text text_type_digits-default">
+              {calculatedPrice}
+            </span>
+            <CurrencyIcon type="primary" />
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

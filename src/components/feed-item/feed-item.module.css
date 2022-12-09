@@ -1,3 +1,11 @@
+.link:link,
+.link:visited,
+.link:active,
+.link:focus {
+  text-decoration: none;
+  color: inherit;
+}
+
 .card {
   box-sizing: border-box;
   display: flex;
@@ -35,43 +43,8 @@
   width: 100%;
 }
 
-.image {
-  box-sizing: border-box;
-  height: 64px;
-  width: 64px;
-  border: 3px solid #4c4cff;
-  background: #131316;
-  border-radius: 50%;
-}
-
-.image:not(:first-child) {
+.offset:not(:first-child) {
   margin-left: -20px;
-}
-
-.last_image {
-  display: inline-block;
-  height: 64px;
-  width: 64px;
-  margin-left: -20px;
-  position: relative;
-}
-
-.counter {
-  position: absolute;
-
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  height: 60px;
-  width: 60px;
-  border-radius: 50%;
-
-  text-align: center;
-  line-height: 60px;
-
-  background-color: #1c1c21;
-  opacity: 0.6;
 }
 
 .price {

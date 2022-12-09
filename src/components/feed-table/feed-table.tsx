@@ -40,11 +40,11 @@ function FeedTable() {
     <div className={styles.container}>
       <div className={styles.orders_table}>
         <div className={styles.table}>
-          <p className="text text_type_main-medium">Готовы:</p>
+          <p className="text text_type_main-medium pb-6">Готовы:</p>
           <ul className={styles.list}>{readyOrders}</ul>
         </div>
         <div className={styles.table}>
-          <p className="text text_type_main-medium">В работе:</p>
+          <p className="text text_type_main-medium pb-6">В работе:</p>
           <ul className={styles.list}>{pendingOrders}</ul>
         </div>
       </div>

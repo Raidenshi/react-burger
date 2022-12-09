@@ -1,11 +1,22 @@
-import React from 'react';
-import { useAppSelector } from '../../hooks/useApp';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/useApp';
+import { WS_CONNECTION } from '../../services/store/reducers/socketSlice';
 import FeedItem from '../feed-item/feed-item';
 
 import styles from './feed-list.module.css';
 
 function FeedList() {
+  const dispatch = useAppDispatch();
+  const socket = useAppSelector((store) => store.socketReducer);
   const data = useAppSelector((store) => store.socketReducer.data);
+
+  useEffect(() => {
+    if (!socket.isConnected && !socket.isConnecting) {
+      dispatch(WS_CONNECTION('wss://norma.nomoreparties.space/orders/all'));
+    }
+  }, []);
+
   const feedItems = data?.orders.map((order) => (
     <FeedItem order={order} key={order.number} />
   ));

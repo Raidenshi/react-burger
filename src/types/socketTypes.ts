@@ -20,4 +20,9 @@ export interface SocketState {
   isConnected: boolean;
 
   data: SocketResponse | null;
+
+  privateConnecting: boolean;
+  privateConnected: boolean;
+
+  privateData: SocketResponse | null;
 }

@@ -13,4 +13,10 @@
 
 .image {
   cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.image:hover {
+  scale: 0.95;
 }
