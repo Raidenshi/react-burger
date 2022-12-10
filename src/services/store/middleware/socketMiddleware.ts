@@ -3,6 +3,7 @@ import {
   WS_CLOSE_CONNECTION,
   WS_CONNECTION,
   WS_CONNECTION_SUCCESS,
+  WS_ERROR,
   WS_GET_MESSAGE,
   WS_PRIVATE_CLOSE_CONNECTION,
   WS_PRIVATE_CONNECTION,
@@ -34,7 +35,7 @@ export const socketMiddleware: Middleware = (
         };
 
         socket.onerror = (event) => {
-          console.log(event);
+          dispatch(WS_ERROR(event));
         };
       }
     }
@@ -59,6 +60,10 @@ export const socketMiddleware: Middleware = (
 
         privateSocket.onerror = (event) => {
           console.log(event);
+        };
+
+        privateSocket.onerror = (event) => {
+          dispatch(WS_ERROR(event));
         };
       }
     }

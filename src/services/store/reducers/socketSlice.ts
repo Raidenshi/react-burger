@@ -65,6 +65,7 @@ export const {
   WS_PRIVATE_CONNECTION_SUCCESS,
   WS_PRIVATE_GET_MESSAGE,
   WS_PRIVATE_CLOSE_CONNECTION,
+  WS_ERROR,
 } = socketSlice.actions;
 
 export const socketActions = socketSlice.actions;

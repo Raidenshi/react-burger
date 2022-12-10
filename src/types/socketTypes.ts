@@ -26,5 +26,5 @@ export interface SocketState {
 
   privateData: SocketResponse | null;
 
-  error: null;
+  error: null | Event;
 }
