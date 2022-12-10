@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/useApp';
-import { WS_PRIVATE_CONNECTION } from '../../services/store/reducers/socketSlice';
+import {
+  WS_PRIVATE_CLOSE_CONNECTION,
+  WS_PRIVATE_CONNECTION,
+} from '../../services/store/reducers/socketSlice';
 import LoadingSpinner from '../../ui/loading-spinner/loading-spinner';
 import { getCookie } from '../../utils/cookie';
 import FeedItem from '../feed-item/feed-item';
@@ -22,6 +25,9 @@ function FeedListProfile() {
         )
       );
     }
+    return () => {
+      dispatch(WS_PRIVATE_CLOSE_CONNECTION());
+    };
   }, []);
 
   const feedItems = data?.orders.map((order) => (

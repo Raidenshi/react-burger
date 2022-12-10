@@ -4,6 +4,7 @@ import {
   WS_CONNECTION,
   WS_CONNECTION_SUCCESS,
   WS_GET_MESSAGE,
+  WS_PRIVATE_CLOSE_CONNECTION,
   WS_PRIVATE_CONNECTION,
   WS_PRIVATE_CONNECTION_SUCCESS,
   WS_PRIVATE_GET_MESSAGE,
@@ -60,6 +61,10 @@ export const socketMiddleware: Middleware = (
           console.log(event);
         };
       }
+    }
+    if (WS_PRIVATE_CLOSE_CONNECTION.match(action)) {
+      privateSocket?.close();
+      privateSocket = null;
     }
 
     next(action);

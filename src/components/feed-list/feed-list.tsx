@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/useApp';
-import { WS_CONNECTION } from '../../services/store/reducers/socketSlice';
+import {
+  WS_CLOSE_CONNECTION,
+  WS_CONNECTION,
+} from '../../services/store/reducers/socketSlice';
 import LoadingSpinner from '../../ui/loading-spinner/loading-spinner';
 import FeedItem from '../feed-item/feed-item';
 
@@ -15,6 +18,9 @@ function FeedList() {
     if (!socket.isConnected && !socket.isConnecting) {
       dispatch(WS_CONNECTION('wss://norma.nomoreparties.space/orders/all'));
     }
+    return () => {
+      dispatch(WS_CLOSE_CONNECTION());
+    };
   }, []);
 
   const feedItems = data?.orders.map((order) => (

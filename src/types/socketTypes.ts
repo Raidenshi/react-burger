@@ -25,4 +25,6 @@ export interface SocketState {
   privateConnected: boolean;
 
   privateData: SocketResponse | null;
+
+  error: null;
 }

@@ -11,6 +11,8 @@ const initialState: SocketState = {
   privateConnected: false,
 
   privateData: null,
+
+  error: null,
 };
 
 const socketSlice = createSlice({
@@ -46,6 +48,10 @@ const socketSlice = createSlice({
       state.privateData = null;
       state.privateConnected = false;
       state.privateConnecting = false;
+    },
+
+    WS_ERROR: (state, action) => {
+      state.error = action.payload;
     },
   },
 });
