@@ -4,7 +4,6 @@ import {
   Counter,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import dataProps from '../../utils/types';
 import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
 import { IIngredient } from '../../types/ingredientsTypes';
@@ -60,10 +59,5 @@ function IngredientsCard({ element, openModal }: ICard) {
     </li>
   );
 }
-
-IngredientsCard.propTypes = {
-  element: dataProps,
-  openModal: PropTypes.func.isRequired,
-};
 
 export default IngredientsCard;

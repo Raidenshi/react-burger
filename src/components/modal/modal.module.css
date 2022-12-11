@@ -22,7 +22,7 @@
   box-sizing: border-box;
   position: absolute;
   left: calc(100% - 24px - 40px);
-  top: 60px;
+  top: 40px;
 
   padding: 3px;
 
@@ -31,4 +31,10 @@
   background-color: transparent;
 
   cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.button:active {
+  scale: 0.9;
 }

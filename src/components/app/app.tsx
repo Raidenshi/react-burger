@@ -6,6 +6,7 @@ import LoginPage from '../../pages/forms/login-page';
 import Page404 from '../../pages/page-404/page-404';
 import RegisterPage from '../../pages/forms/register-page';
 import ResetPage from '../../pages/forms/reset-page';
+import FeedPage from '../../pages/feed/feed-page';
 import Layout from '../layout/layout';
 import ProfilePage from '../../pages/profile/profile-page';
 import ProtectedRoute from '../protected-route/protected-route';
@@ -21,6 +22,10 @@ import { postOrder } from '../../services/store/actions/postOrder';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { IIngredient } from '../../types/ingredientsTypes';
+import FeedItemModal from '../feed-item-modal/feed-item-modal';
+import FeedItemPage from '../../pages/feed-item/feed-item-page';
+import ProfileForm from '../profile-form/profile-form';
+import FeedListProfile from '../feed-list-profile/feed-list-profile';
 
 function App() {
   const location = useLocation();
@@ -57,6 +62,7 @@ function App() {
     dispatch(getData());
     dispatch(authUser());
   }, []);
+
   return (
     <>
       <Routes location={background || location}>
@@ -81,6 +87,19 @@ function App() {
                 <ProfilePage />
               </ProtectedRoute>
             }
+          >
+            <Route index element={<ProfileForm />} />
+            <Route path="orders" element={<FeedListProfile />} />
+          </Route>
+          <Route
+            path="/profile/orders/:id"
+            element={
+              <ProtectedRoute>
+                <FeedItemPage>
+                  <FeedItemModal />
+                </FeedItemPage>
+              </ProtectedRoute>
+            }
           />
           <Route path="ingredient/:id" element={<IngredientPage />} />
           <Route
@@ -91,9 +110,19 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="feed" element={<FeedPage />} />
+          <Route
+            path="feed/:id"
+            element={
+              <FeedItemPage>
+                <FeedItemModal />
+              </FeedItemPage>
+            }
+          />
           <Route path="*" element={<Page404 />} />
         </Route>
       </Routes>
+
       {background && (
         <Routes>
           <Route
@@ -112,6 +141,22 @@ function App() {
                   <OrderDetails />
                 </Modal>
               </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/feed/:id"
+            element={
+              <Modal closeModal={closeModal}>
+                <FeedItemModal />
+              </Modal>
+            }
+          />
+          <Route
+            path="profile/orders/:id"
+            element={
+              <Modal closeModal={closeModal}>
+                <FeedItemModal />
+              </Modal>
             }
           />
         </Routes>

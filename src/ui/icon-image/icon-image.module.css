@@ -1,0 +1,52 @@
+.image_container {
+  display: inline-block;
+  height: 66px;
+  width: 66px;
+  border-radius: 50%;
+  background: linear-gradient(
+    45deg,
+    rgba(128, 26, 178, 1) 0%,
+    rgba(76, 76, 255, 1) 100%
+  );
+
+  position: relative;
+}
+
+.background {
+  margin: 0;
+  width: 61px;
+  height: 61px;
+  border-radius: 50%;
+  background-color: #1c1c21;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.image {
+  height: 60px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.counter {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+
+  text-align: center;
+  line-height: 60px;
+
+  background-color: #1c1c21;
+  opacity: 0.6;
+}
