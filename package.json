@@ -2,6 +2,7 @@
   "name": "react-burger",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https:///Raidenshi.github.io/react-burger",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.6",
     "@testing-library/jest-dom": "^5.16.5",
@@ -26,6 +27,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -51,6 +54,7 @@
   },
   "devDependencies": {
     "@types/uuid": "^8.3.4",
-    "cypress": "^12.0.2"
+    "cypress": "^12.0.2",
+    "gh-pages": "^4.0.0"
   }
 }

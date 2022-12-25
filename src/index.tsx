@@ -9,7 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename={'/react-burger'}>
       <App />
     </BrowserRouter>
   </Provider>
