@@ -10,7 +10,7 @@ function OrderDetails() {
   return (
     <div className={`mt-30 mb-30 ${orderStyles.container}`}>
       {request ? (
-        <p className="text text_type_main-large">Загрузка...</p>
+        <p className="text text_type_main-large">Оформление заказа...</p>
       ) : (
         <>
           <p className="text text_type_digits-large">
