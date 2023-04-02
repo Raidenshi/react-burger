@@ -16,7 +16,7 @@ function BurgerIngredients({
   const data = useAppSelector((store) => store.ingredientsReducer.data);
   const [current, setCurrent] = React.useState<string>('Булки');
 
-  const [{ isDragging }, drag] = useDrag(() => ({
+  const [] = useDrag(() => ({
     type: 'ingredient',
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),

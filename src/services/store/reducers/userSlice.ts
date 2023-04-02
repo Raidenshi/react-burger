@@ -43,7 +43,7 @@ const userSlice = createSlice({
       state.loginRequest = true;
     },
     LOGIN_SUCCESS: (state) => {
-      state.registerRequest = false;
+      state.loginRequest = false;
     },
     PASSWORD_REQUEST: (state) => {
       state.passwordRequest = true;
